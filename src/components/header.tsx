@@ -5,6 +5,12 @@ import bookmark from '../assets/bookmark.svg';
 import profile from '../assets/profile.svg';
 import { Link } from 'react-router-dom';
 import Userpopup from './userpopup';
+import Avatar from '@mui/material/Avatar';
+import Favorite from '@mui/icons-material/Favorite';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import Badge from '@mui/material/Badge';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { favoriteFilter } from '../redux/favorite/selectors';
 
 
 type Props = {}
@@ -14,6 +20,9 @@ const Header  : React.FC = (props: Props) => {
 
     const popupMenuRef = useRef<HTMLDivElement>(null);
     const [menuVisible, setMenuVisible] = useState(false);
+
+
+    const {idFavorites, idBookmarks} = useSelector(favoriteFilter);
     
 
     const onClose =() => {
@@ -45,14 +54,14 @@ const Header  : React.FC = (props: Props) => {
 
         <div className="control">
 
-            <div className="fav">
+            {/* <div className="fav">
                 <img src={bookmark} className="icon" alt="image description"/>
 
                 <div className="number">
                     <div className="eclispe"></div>
                     <div className="digit">2</div>
                 </div>
-            </div>
+            </div> */}
 
 
             {menuVisible && (
@@ -62,11 +71,29 @@ const Header  : React.FC = (props: Props) => {
                 
             )}
 
+            <Link to={`/favorite`}>
+                <div className='clickable'>
+                    <Badge badgeContent={idFavorites.length} color="secondary">
+                        <Favorite color='primary' />
+                    </Badge>
+                </div>
+            </Link>
+            
+            <Link to={`/bookmarks`}>
+                <div className='clickable'>
+                    <Badge badgeContent={idBookmarks.length} color="secondary">
+                        <BookmarkIcon color='primary' />
+                    </Badge>
+                </div>
+            </Link>
             
 
+            <div className='clickable'>
+                <Avatar onClick={() => setMenuVisible(!menuVisible)}/>
+            </div>
 
 
-            <div className="login-frame">
+            {/* <div className="login-frame">
                 <form>
                     <input type="text" id="username" name="username" className="login" placeholder="Enter your username"/>
                     <input type="password" id="password" name="password" className="password"
@@ -83,14 +110,9 @@ const Header  : React.FC = (props: Props) => {
                     <div className="left-text">Lost your password?</div>
                     <a href="restorepass.html" className="right-text">Restore password</a>
                 </div>
+            </div> */}
 
-            </div>
-
-
-            <div className="user" onClick={() => setMenuVisible(!menuVisible)}>
-                <div className="eclipse"></div>
-                <img src={profile} className="vector" alt="image description"/>
-            </div>
+            
         </div>
     </div>
   )

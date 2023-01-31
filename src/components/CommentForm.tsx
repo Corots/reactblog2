@@ -4,10 +4,13 @@ import React, { useState } from 'react'
 import guy from '../assets/img/guy.jpg';
 import {Icomment} from './comments';
 import {IForm, EnumSort} from './comments';
+import SendIcon from '@mui/icons-material/Send';
+import TextField from '@mui/material/TextField';
+import ColorToggleButton from './MaterialUI/ColorToggleButton';
 
 
 
-const CommentForm : React.FC<IForm> = ({fetchData, setSortComments, SortComments, articleId}) => {
+const CommentForm : React.FC<IForm> = ({fetchData,  articleId}) => {
 
 
     const defComment = {
@@ -47,17 +50,21 @@ const CommentForm : React.FC<IForm> = ({fetchData, setSortComments, SortComments
 
        
 
-
+      
 
   return (
     <div className="comment-block">
                 <div className="top-section">
                     <div className="comment">Comments</div>
-                    <div className="buttons">
+                    <ColorToggleButton/>
+
+                    {/* SortComments: EnumSort
+                    setSortComments :  */}
+
+                    {/* <div className="buttons">
                         <button className={`left ${SortComments == EnumSort.DATE ? 'active' : ''}`} onClick={() => (setSortComments(EnumSort.DATE))}>Latest</button>
                         <button className={`right ${SortComments == EnumSort.POPULARITY ? 'active' : ''}`} onClick={() => (setSortComments(EnumSort.POPULARITY))}>Popular</button>
-
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="text-area">
@@ -80,8 +87,17 @@ const CommentForm : React.FC<IForm> = ({fetchData, setSortComments, SortComments
 
                     </div> */}
 
-                    <form>
-                        <textarea  value={newComment.text} onChange={handleChange}></textarea>
+
+                        <TextField
+                            sx={{width : "100%"}}
+                            id="outlined-multiline-static"
+                            label="Comment text"
+                            multiline
+                            rows={8}
+                            value={newComment.text} 
+                            onChange={handleChange}
+                         />
+
 
                         <div className="control-comment">
                             <div className="font-settings">
@@ -91,10 +107,8 @@ const CommentForm : React.FC<IForm> = ({fetchData, setSortComments, SortComments
                                 <button className="font-button font-dog">@</button>
 
                             </div>
-                            <Button variant="contained" onClick={handleSubmit} disabled={newComment.text === ''}>Send</Button>
-
+                            <Button variant="contained" endIcon={<SendIcon />} disabled={newComment.text === ''} onClick={handleSubmit}>Send</Button>
                         </div>
-                    </form>
                 </div>
             </div>
   )

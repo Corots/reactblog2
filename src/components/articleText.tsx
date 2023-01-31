@@ -1,8 +1,11 @@
+import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 import guy from '../assets/img/guy.jpg';
 import imageann from '../assets/img/image-ann.png'
+
 
 
 interface Iarticle {
@@ -24,7 +27,7 @@ const ArticleText : React.FC<{ article: Iarticle }> = ({ article }) => {
             <div className="subtitle">{article.text.slice(0, 100) + "..."}</div>
 
             <div className="author">
-                <a href="#"> <img src={"https://source.unsplash.com/random"} className="author-image"/></a>
+                <Avatar alt={article.author} src={"https://source.unsplash.com/random"} />
 
                 <div className="author-box">
                     <p className="name">Author : <a href="#">{article.author}</a></p>

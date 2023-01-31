@@ -7,18 +7,19 @@ import {Icomment, ISingleComment} from './comments'
 
 
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
-import { faInfo } from '@fortawesome/free-solid-svg-icons/faInfo';
-import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
+import Avatar from '@mui/material/Avatar';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
+import IconMenu from './MaterialUI/IconMenu';
+import SaveIcon from '@mui/icons-material/Save';
+
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 
-// : React.FC<IForm>
 
-
-// : React.FC<{ comment: Icomment , replies : Icomment[] }>
 
 type FontAwesomeSvgIconProps = {
     icon: any;
@@ -275,7 +276,8 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
             <div className={newComment.replyId ? "comment comment-reply" : "comment"}>
             <div className="author-info">
                 <div className="user">
-                    <img src={guy} className="author-image" />
+                    {/* <img src={guy} className="author-image" /> */}
+                    <Avatar alt={newComment.author} src={guy} />
                     <p>{newComment.author}</p>
                 </div>
                 <div className="eclispe-menu-wrapper">
@@ -294,14 +296,12 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
                     
                     {PopupOn && 
                     <div className="popup-users" ref={popupRef}>
-                        <div className="user" onClick={handleEditClick}>
-                            <p>Edit</p>
-                        </div>
-                        <div className="user" onClick={handleDelete}>
-                            <p>Delete</p>
-                        </div>
+                        <IconMenu handleEditClick = {handleEditClick} handleDelete = {handleDelete}/>
                     </div>
                     }
+
+
+
 {/* https://mui.com/material-ui/icons/ */}
 
 
@@ -309,16 +309,20 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
             </div>
 
             {editing ? (
-            <textarea 
-                style={{ resize: "vertical" }} 
-                onChange={e => setnewComment({ ...newComment, text: e.target.value })} 
-                value= {newComment.text}
-            />
+                <TextField
+                    sx={{width : "100%"}}
+                    id="outlined-multiline-static"
+                    label="Comment text"
+                    multiline
+                    rows={8}
+                    value={newComment.text} 
+                    onChange={e => setnewComment({ ...newComment, text: e.target.value })} 
+                /> 
             ) : 
             (
-            <div className="text">
-                {newComment.text}
-            </div>
+                <div className="text">
+                    {newComment.text}
+                </div>
             )}
 
         
@@ -327,49 +331,58 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
                     {editing ?(
                         <div className="buttons-reaction">
+                            {/* <button onClick={handleSaveClick}>Save</button>
+                            <button onClick={handleCancelClick}>Cancel</button> */}
                             
-                            <button onClick={handleSaveClick}>Save</button>
-                            <button onClick={handleCancelClick}>Cancel</button>
+                            <Button disabled={newComment.text === ''} variant="outlined" onClick={handleSaveClick} endIcon={<SaveIcon />}>Save</Button>
+                            <Button variant="text" onClick={handleCancelClick}>Cancel</Button>
+
+
                         </div>
                     ):
                     (
+                        <>
                         <div className="buttons-reaction">
-                            <button onClick={HandleLike}>👍 {newComment.likes}</button>
-                            <button onClick={HandleDisike}>👎 {newComment.dislikes}</button>
+
+                            <Button color="success" variant="outlined" onClick={HandleLike} endIcon={<ThumbUpIcon />}>{newComment.likes}</Button>
+                            <Button color="error" variant="outlined" onClick={HandleDisike} endIcon={<ThumbUpIcon />}>{newComment.dislikes}</Button>
                         </div>
+                        <div className="reply-button" onClick={handleStartReply}>Reply</div>
+                        <div className="hours-ago">{timeAgo}</div>
+                        </>
                     )}
 
-                {!editing && 
-                <>
-                    <div className="reply-button" onClick={handleStartReply}>Reply</div>
-                    <div className="hours-ago">{timeAgo}</div>
-                </>
-                }
+              
+
+                        
                 
 
                 
             </div>
 
 
-            {IsReplying ? (
+            {IsReplying && (
                 <>
-                <div>Leave a comment</div>
-                <textarea 
-                    style={{ resize: "vertical" }}  
-                    defaultValue= {`@${newComment.id} `} 
+                <TextField
+                    sx={{width : "100%"}}
+                    id="outlined-multiline-static"
+                    label="Leave a reply"
+                    multiline
+                    rows={8}
+                    defaultValue={`@${newComment.id} `} 
                     onChange={e => setnewReply({ ...newReply, text: e.target.value, replyId : newComment.replyId || Number(comment.id) })}
-                />
+                /> 
                 
                 <div className="controlpanel">
     
                         
                             <div className="buttons-reaction">
-                                <button onClick={PostReplyHandler}>Post a reply</button>
-                                <button onClick={CancelReplyHandler}>Cancel</button>
+                                <Button disabled={newReply.text === ''} variant="outlined" onClick={PostReplyHandler} endIcon={<SendIcon />}>Post a reply</Button>
+                                <Button variant="text" onClick={CancelReplyHandler}>Cancel</Button>
                             </div>
                 </div>
                 </>
-            ) : ''}
+            )}
             
 
         </div>

@@ -19,46 +19,45 @@ const Userpopup = (props: Props) => {
 
                 <div className="menu-elems">
                     
-                    <Link to="/article">
+                    <Link to="/favorite">
                         <div className="elem">
                             <img src={bookmark} className="logo" alt="image description"/>
-                            <div className="text">My articles</div>
+                            <div className="text">My favorites</div>
                             <div className="number">2</div>
                         </div>
                     </Link>
                     
                         
                    
-
-                    <a href="/template/mynotes.html">
+                    <Link to="/bookmarks">
                         <div className="elem">
                             <img src={bookmark} className="logo" alt="image description"/>
                             <div className="text">My booknotes</div>
                             <div className="number">5</div>
                         </div>
-                    </a>
+                    </Link>
 
 
-                    <a href="#">
+                   
                         <div className="elem">
                             <img src={bookmark} className="logo" alt="image description"/>
                             <div className="text">My comments</div>
                         </div>
-                    </a>
+                
 
-                    <a href="#">
+               
                         <div className="elem">
                             <img src={bookmark} className="logo" alt="image description"/>
                             <div className="text">Settings</div>
                         </div>
-                    </a>
+              
 
-                    <a href="#">
+                
                         <div className="elem">
                             <img src={bookmark} className="logo" alt="image description"/>
                             <div className="text">Log out</div>
                         </div>
-                    </a>
+                 
 
                 </div>
 

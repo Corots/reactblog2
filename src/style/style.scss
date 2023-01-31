@@ -82,18 +82,18 @@ button {
     }
 
     .control{
-        /* control */
-        width: 91px;
-        height: 38px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 25px;
 
+        .clickable{
+            &:hover{
+                cursor: pointer;
+            }
 
-        /* Inside auto layout */
-
-        flex: none;
-        order: 1;
-        flex-grow: 0;
-        position: relative;
-
+        }
         
 
         .fav{
@@ -164,8 +164,8 @@ button {
         .account{
             background: #FFFFFF;
             position: absolute;
-            right: -8px;
-            top: 48px;
+            right: 38px;
+            top: 79px;
             width: 221px;
             height: 218px;
             border: 1px solid #B0B0B0;
@@ -479,57 +479,6 @@ button {
 
 
 
-        .user{
-            /* user */
-
-
-            position: absolute;
-            width: 37px;
-            height: 37px;
-            right: 0;
-            top: 0px;
-
-            *:not(:first-child):hover {
-                cursor: pointer;
-            }
-
-            
-
-
-            .eclipse{
-                /* Ellipse 1 */
-                position: absolute;
-                left: 0%;
-                right: 0%;
-                top: 0%;
-                bottom: 0%;
-                border-radius: 50%;
-
-                /* My grey */
-
-                background: #B0B0B0;
-
-                
-
-            }
-
-            .vector{
-                /* Vector */
-
-
-                position: absolute;
-                right: 6px;
-                top: 5px;
-                height: 68%;
-
-                /* My grey */
-
-                filter: hue-rotate(360deg) saturate(100%) brightness(200%);
-            }
-
-        }
-
-
     }
 
 }
@@ -607,23 +556,23 @@ button {
 
     }
 
-    button.read{
+    .read{
         /* button */
 
 
         position: absolute;
-        width: 110px;
+        width: 150px;
         height: 41px;
         left: 48px;
         top: 285px;
 
         /* My blue */
 
-        background: #8447FA;
-        border-radius: 5px;
-        color: white;
-        border: none;
-        cursor: pointer;
+        // background: #8447FA;
+        // border-radius: 5px;
+        // color: white;
+        // border: none;
+        // cursor: pointer;
     }
 
     .image{
@@ -681,6 +630,7 @@ button {
         justify-content: space-around;
         justify-items: center;
         gap: 20px;
+        align-items: center;
 
 
 
@@ -921,6 +871,13 @@ button {
 
     .row-articles{
         /* Component 7 */
+
+
+        .no-fav{
+            grid-column: 1 / -1;
+            font-size: 26px;
+            padding: 40px 0;
+        }
         
     
         /* Auto layout */
@@ -958,6 +915,7 @@ button {
 
         .article-cart{
             width: 283px;
+            // width: 20%;
             // height: 449px;
             border: 1px solid #000000;
             border-radius: 10px;
@@ -967,6 +925,8 @@ button {
             align-items: flex-start;
             padding: 20px;
             gap: 15px;
+
+            position: relative;
 
 
             &-skeleton{
@@ -994,14 +954,11 @@ button {
 
             .addfav{
                 position: absolute;
-                left: 12px;
-                top: 4px;
-                width: 28px;
-                height: 25px;
-                background-color: red;
-
-                left: 204px;
-                top: 13px;
+                background-color: #e1e1e1;
+                left: 168px;
+                top: 22px;
+                z-index: 2;
+                border-radius: 10px;
               }
 
             .image-zone{
@@ -1294,27 +1251,25 @@ button {
 
 
 
-.popup-users{
-    /* Auto layout */
+// .popup-users{
+//     /* Auto layout */
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 15px 10px;
-    gap: 7px;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     align-items: flex-start;
+//     padding: 15px 10px;
+//     gap: 7px;
 
-    position: absolute;
-    left: 249px;
-    top: 64px;
+//     position: absolute;
+//     left: 249px;
+//     top: 64px;
 
-    background: #FFFFFF;
-    box-shadow: 0px 0px 9px 9px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+//     background: #FFFFFF;
+//     box-shadow: 0px 0px 9px 9px rgba(0, 0, 0, 0.25);
+//     border-radius: 10px;
 
-
-
-}
+// }
 
 
 
@@ -1487,56 +1442,19 @@ button {
 
             width: 90%;
             height: 301px;
-
             background: #ffffff;
             border: 1px solid #B0B0B0;
-            // box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.25);
             border-radius: 20px;
-
             padding: 13px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
             &:focus-within {
                 box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.25);
             }
 
-            textarea {
-
-                resize: none;
-                width: 100%;
-                height: 227px;
-                border: none;
-                border-bottom: 1px solid #B0B0B0;
-                padding: 10px 0;
-
-                font-family: 'Inter';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 20px;
-                line-height: 24px;
-
-                color: #000000;
-
-
-                .bold{
-                    font-weight: 700;
-                }
-                .italic{
-                    font-style: italic;
-                }
-
-                .dog{
-                    color: #B0B0B0;
-                }
-
-                
-                &:focus {
-                    outline: none;
-                }
-            }
             
-            
-
-
             .control-comment{
                 /* Auto layout */
 
@@ -1630,11 +1548,10 @@ button {
                 background-color: white;
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
-                padding: 20px 0;
+                gap: 22px;
 
                 &-reply{
-                    padding-left: 40px;
+                    padding-left: 60px;
                 }
 
                 .author-info{
@@ -1643,6 +1560,8 @@ button {
                     align-items: center;
                     justify-content: space-between;
                     position: relative;
+                    border-top: 1px solid black;
+                    padding-top: 14px;
 
                     .eclispe-menu-wrapper{
                         position: relative;
@@ -1651,8 +1570,10 @@ button {
 
                     .popup-users{
                         position: absolute;
-                        left: -119px;
-                        top: -8px;
+                        left: -202px;
+                        top: 4px;
+                        width: 200px;
+                        height: 90px;
 
                         .user{
                             width: 100%;
@@ -1729,32 +1650,32 @@ button {
                         flex-direction: row;
                         gap: 15px;
 
-                        button{
-                            background: #FFFFFF;
-                            /* My grey */
+                        // button{
+                        //     background: #FFFFFF;
+                        //     /* My grey */
 
-                            border: 1px solid #B0B0B0;
-                            border-radius: 10px;
+                        //     border: 1px solid #B0B0B0;
+                        //     border-radius: 10px;
 
-                            font-family: 'Inter';
-                            font-style: normal;
-                            font-weight: 400;
-                            font-size: 20px;
-                            line-height: 140%;
-                            /* or 28px */
+                        //     font-family: 'Inter';
+                        //     font-style: normal;
+                        //     font-weight: 400;
+                        //     font-size: 20px;
+                        //     line-height: 140%;
+                        //     /* or 28px */
 
-                            padding: 2px 7px;
+                        //     padding: 2px 7px;
 
-                            color: #000000;
+                        //     color: #000000;
 
-                            &:hover{
-                                cursor: pointer;
+                        //     &:hover{
+                        //         cursor: pointer;
 
-                                border: 1px solid #dedede;
+                        //         border: 1px solid #dedede;
 
-                            }
+                        //     }
 
-                        }
+                        // }
 
                         
 

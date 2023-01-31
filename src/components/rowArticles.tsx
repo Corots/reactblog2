@@ -17,12 +17,12 @@ import Skeleton from './ArticleCart/skeleton';
 type Props = {}
 
 
-interface Iarticle {
-  id: number;
+export interface Iarticle {
+  id: string;
   title: string;
   text: string;
   author: string;
-  date: string;
+  date: number;
 }
 
 

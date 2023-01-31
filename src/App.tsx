@@ -16,6 +16,8 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import Favorite from './components/favorite';
+import Bookmarks from './components/bookmarks';
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
       <Routes>
         <Route path="/" element={<RowArticles />}  />
         <Route path="/article/:id" element={<ArticlePage />}  />
+        <Route path="/favorite" element={<Favorite />}  />
+        <Route path="/bookmarks" element={<Bookmarks />}  />
       </Routes>
     </>
 

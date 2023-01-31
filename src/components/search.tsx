@@ -14,6 +14,12 @@ import arrow_down from '../assets/arrow-down.svg';
 import { selectFilter } from '../redux/filter/selectors';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 
 
@@ -100,46 +106,63 @@ const Search  : React.FC = (props: Props) => {
 
   const handleSort = (item: SortItem) => {
     setopenMenu(false);
+
     setSortType(item);
+
   }
 
 
   
 
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
+  };
+
+  const labelStyle = { position : "absolute", top : -3}
 
 
   return (
     <div className="search">
         <form className="inputs">
 
-            <input type="text" className="text search-input" placeholder="Enter text to search" value={inputText} onChange={e => setInputText(e.target.value)} />
-            <input type="text" className="author search-input" placeholder="Enter author" value={inputAuthor} onChange={e => setInputAuthor(e.target.value)}/>
 
 
-            <div className="search-input-wrapper">
-              <div className="author search-input" onClick= {() => setopenMenu(!openMenu)} >{sortType.name} 
-                <img src={arrow_down} alt="" className="arrow" />
-              </div>
+            <TextField size="small"  id="outlined-basic" label="Enter text to search" variant="outlined" value={inputText} onChange={e => setInputText(e.target.value)} />
+            <TextField size="small"  id="outlined-basic" label="Enter author" variant="outlined" value={inputAuthor} onChange={e => setInputAuthor(e.target.value)} />
 
-
-              {openMenu ? (
-              
-              <div className="popup-sort">
+            <FormControl size="small">
+              <InputLabel id="demo-simple-select-label" sx = {labelStyle} >Sort By</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={age}
+                label="Sort By"
+                onChange={handleChange}
+              >
                 {sortList.map((item) => (
-                  <div className={`item ${item.name === sortType.name ? 'item-choosed' : ''}`} onClick = {() => handleSort(item)}>
-                    {item.name}
-                  </div>
-                ))}
-              </div>) : <></>}
-              
+                  <MenuItem value={item.name} onClick = {() => handleSort(item)}>{item.name}</MenuItem>
+              ))}
+              </Select>
+            </FormControl>
 
 
-            </div>
+
+
+
+
+
+
+                  
+
+            {/* </div> */}
             
 
-
-            <button className="search-button" onClick={searchHandler}>Search</button>
-            <button className="search-button" onClick={clearInputs}>Clear</button>
+            <Button fullWidth variant="contained" onClick={searchHandler}>Search</Button>
+            <Button fullWidth variant="outlined" onClick={clearInputs}>Clear</Button>
+            {/* <button className="search-button" onClick={searchHandler}>Search</button> */}
+            {/* <button className="search-button" onClick={clearInputs}>Clear</button> */}
 
         </form>
     </div>
