@@ -12,7 +12,7 @@ const Anouncment : React.FC = (props: Props) => {
      
 
         <Link to='/article/1' className="read">
-          <Button fullWidth variant="contained">Search</Button>
+          <Button fullWidth variant="contained">Read article</Button>
         </Link>
   
     

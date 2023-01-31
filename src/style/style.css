@@ -627,6 +627,9 @@ button {
   grid-column: 1/-1;
   font-size: 26px;
   padding: 40px 0;
+  width: 80%;
+  max-width: 331px;
+  text-align: center;
 }
 @media (max-width: 1310px) {
   .context .row-articles {
@@ -687,7 +690,6 @@ button {
 }
 .context .row-articles .article-cart .title {
   width: 100%;
-  height: 60px;
   font-family: "Inder";
   font-style: normal;
   font-weight: 400;
@@ -736,7 +738,7 @@ button {
   flex-direction: column;
   align-items: center;
   padding: 0px;
-  gap: 55px;
+  gap: 20px;
   width: 100%;
 }
 .single-article-content .single-article-info {
@@ -758,7 +760,7 @@ button {
   font-weight: 400;
   font-size: 40px;
   line-height: 50px;
-  /* identical to box height */
+  text-align: center;
   color: #000000;
 }
 .single-article-content .single-article-info .subtitle {
@@ -870,7 +872,6 @@ button {
   gap: 45px;
   position: relative;
   width: 100%;
-  height: 396px;
   left: 0px;
   top: 0px;
   justify-content: center;
@@ -879,16 +880,20 @@ button {
 .comment-section .comment-block .top-section {
   /* Frame 32 */
   display: flex;
-  flex-direction: row;
   align-items: center;
+  flex-direction: row;
   justify-content: space-between;
-  padding: 0px;
+  padding: 0;
   width: 90%;
-  height: 50px;
+}
+@media (max-width: 530px) {
+  .comment-section .comment-block .top-section {
+    flex-direction: column;
+    gap: 14px;
+  }
 }
 .comment-section .comment-block .top-section .comment {
   /* Comments */
-  width: 201px;
   height: 50px;
   font-family: "Inder";
   font-style: normal;
@@ -1087,6 +1092,13 @@ button {
   vertical-align: center;
   padding: 0px;
   gap: 56px;
+}
+@media (max-width: 580px) {
+  .comment-section .comments-history .comment .controlpanel {
+    display: grid;
+    grid-template-columns: 190px 10px;
+    gap: 15px 5px;
+  }
 }
 .comment-section .comments-history .comment .controlpanel .buttons-reaction {
   display: flex;

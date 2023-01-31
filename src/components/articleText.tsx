@@ -20,6 +20,8 @@ const ArticleText : React.FC<{ article: Iarticle }> = ({ article }) => {
 
   const readableDate = new Date(parseInt(article.date) * 1000);
 
+  let paragraphs = article.text.split("/n");
+
   return (
     <div className="single-article-content">
         <div className="single-article-info">
@@ -39,8 +41,12 @@ const ArticleText : React.FC<{ article: Iarticle }> = ({ article }) => {
         <img src={"https://source.unsplash.com/random"} className="single-article-pic"></img>
 
         <div className="single-article-text">
-            <p className="title">Here is our super awesome title</p>
-            <p className="text">{article.text}</p>
+
+              {paragraphs.map((paragraph, index) => (
+              <p key={index} className="text">{paragraph}</p>
+            ))}
+
+            {/* <p className="text">{article.text}</p> */}
         </div>
     </div>
   )

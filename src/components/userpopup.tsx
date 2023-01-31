@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom'
 
 import guy from '../assets/img/guy.jpg';
 import bookmark from '../assets/bookmark.svg';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { favoriteFilter } from '../redux/favorite/selectors';
 
 
 type Props = {}
 
 const Userpopup = (props: Props) => {
 
-
+    const {idFavorites, idBookmarks} = useSelector(favoriteFilter);
     
   return (
     <>
@@ -23,7 +25,8 @@ const Userpopup = (props: Props) => {
                         <div className="elem">
                             <img src={bookmark} className="logo" alt="image description"/>
                             <div className="text">My favorites</div>
-                            <div className="number">2</div>
+                            {idFavorites.length ? <div className="number">{idFavorites.length}</div> : <></>}
+                            {/* <div className="number">2</div> */}
                         </div>
                     </Link>
                     
@@ -33,7 +36,8 @@ const Userpopup = (props: Props) => {
                         <div className="elem">
                             <img src={bookmark} className="logo" alt="image description"/>
                             <div className="text">My booknotes</div>
-                            <div className="number">5</div>
+                            {idBookmarks.length ? <div className="number">{idBookmarks.length}</div> : <></>}
+                            {/* <div className="number">5</div> */}
                         </div>
                     </Link>
 
