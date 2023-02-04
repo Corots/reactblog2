@@ -38,12 +38,13 @@ useEffect(() => {
   const results: Iarticle[] = [];
   let requestsLeft = idFavorites.length;
 
-  const makeRequest = async (id: string) => {
-    const result = await axios.get(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles/${id}`);
+  const makeRequest = async (id: number) => {
+    const result = await axios.get(`https://myawesomeapp.me/api/article/${id}`);
     results.push(result.data);
     requestsLeft--;
 
     if (requestsLeft === 0 || !requestsLeft) {
+      console.log(Myfavorite);
       setMyfavorite(results);
       setisLoading(false);
     }
@@ -70,10 +71,12 @@ useEffect(() => {
     <div className="context">
       <div className="row-articles">
 
+      {isLoading || Myfavorite.length ? <div className='no-fav'>Favorite articles </div> : <></>}
       
-
+      
       {
-        isLoading ?  [...new Array(8)].map( (_, index) => <Skeleton key = {index}/>  ) : Myfavorite.length ?  
+        isLoading ?  [...new Array(8)].map( (_, index) => <Skeleton key = {index}/>  ) : Myfavorite.length ? 
+         
         Myfavorite.map((myfavorite) => <ArticleCart key={myfavorite.id} article={myfavorite}/>) :
         <>
           <div className='no-fav'>You don't add any articles as your favorite. Come back to the <Link to="/"> main page </Link> </div>

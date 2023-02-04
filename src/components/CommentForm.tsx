@@ -7,21 +7,25 @@ import {IForm, EnumSort} from './comments';
 import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 import ColorToggleButton from './MaterialUI/ColorToggleButton';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { favoriteFilter } from '../redux/favorite/selectors';
 
 
 
 const CommentForm : React.FC<IForm> = ({fetchData,  articleId}) => {
 
+    const {logged} = useSelector(favoriteFilter);
 
     const defComment = {
-            author: 'John Dada',
+            id: 1,
             text: '',
+            reply_id: null,
             likes: 0,
             dislikes: 0,
-            replyId: null,
-            id: '',
-            articleId: articleId,
-            date : new Date()
+            date : new Date().toString(),
+            author: 'John Dada',
+            author_id: 1,
+            article_id : 1,
         }
     
 
@@ -33,10 +37,18 @@ const CommentForm : React.FC<IForm> = ({fetchData,  articleId}) => {
 
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        setNewComment({ ...newComment, date: new Date() });
 
-        axios.post(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles/${articleId}/comments`, newComment)
+        const query = {
+            token : localStorage.getItem("access_token"),
+        }
+        const body = {
+            text : newComment.text,
+            date : new Date().toISOString(),
+        }
+
+
+        event.preventDefault();
+        axios.post(`https://myawesomeapp.me/api/article/${articleId}/comment`, body, {params : query})
           .then(response => {
             console.log(response);
             setNewComment(defComment);
@@ -58,16 +70,12 @@ const CommentForm : React.FC<IForm> = ({fetchData,  articleId}) => {
                     <div className="comment">Comments</div>
                     <ColorToggleButton/>
 
-                    {/* SortComments: EnumSort
-                    setSortComments :  */}
-
-                    {/* <div className="buttons">
-                        <button className={`left ${SortComments == EnumSort.DATE ? 'active' : ''}`} onClick={() => (setSortComments(EnumSort.DATE))}>Latest</button>
-                        <button className={`right ${SortComments == EnumSort.POPULARITY ? 'active' : ''}`} onClick={() => (setSortComments(EnumSort.POPULARITY))}>Popular</button>
-                    </div> */}
+                
                 </div>
+                
 
-                <div className="text-area">
+                {logged  ? 
+                (<div className="text-area">
                     {/* <div className="popup-users">
 
                         <div className="user">
@@ -109,7 +117,14 @@ const CommentForm : React.FC<IForm> = ({fetchData,  articleId}) => {
                             </div>
                             <Button variant="contained" endIcon={<SendIcon />} disabled={newComment.text === ''} onClick={handleSubmit}>Send</Button>
                         </div>
-                </div>
+                </div>) : (
+                    <div>Please log in to leave a comment</div>
+
+
+                )
+                }
+
+
             </div>
   )
 }

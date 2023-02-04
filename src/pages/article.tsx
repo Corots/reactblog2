@@ -15,6 +15,7 @@ interface Iarticle {
   text: string;
   author: string;
   date: string;
+  img: string;
 }
 
 const ArticlePage  : React.FC = (props: Props) => {
@@ -25,7 +26,7 @@ const ArticlePage  : React.FC = (props: Props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles/${id}`);
+      const result= await axios.get<Iarticle>(`https://myawesomeapp.me/api/article/${id}`);
       setArticle(result.data);
       console.log('data from article element', result.data);
 
@@ -33,7 +34,6 @@ const ArticlePage  : React.FC = (props: Props) => {
 
     fetchData();
   }, [id]);
-
 
   if (!article){
     return <></>

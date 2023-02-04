@@ -15,7 +15,6 @@ import { Iarticle } from '../rowArticles';
 const ArticleCart  : React.FC<{ article: Iarticle }> = ({ article }) => {
 
     const truncatedText = article.text.slice(0, 100) + "...";
-    const readableDate = new Date(article.date * 1000);
 
     
     
@@ -43,11 +42,11 @@ const ArticleCart  : React.FC<{ article: Iarticle }> = ({ article }) => {
 
 
                 <div className="author">
-                    <a href="#"> <img src={guy} className="author-image"/></a>
+                    <a href="#"> <img src={article.img} className="author-image"/></a>
 
                     <div className="author-box">
                         <p className="name">Author : <a href="#">{article.author}</a></p>
-                        <p className="date">Date : {readableDate.toLocaleString()}</p>
+                        <p className="date">Date : {article.date}</p>
                     </div>
                 </div>
             </div>

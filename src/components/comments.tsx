@@ -14,15 +14,21 @@ type Props = {
 
 
 export interface Icomment {
-    id: string;
-    articleId: string;
-    author: string;
+    id: number;
     text: string;
+    reply_id : number | null;
     likes: number;
     dislikes: number;
-    replyId : number | null;
-    date: Date;  
+    date: string;  
+    author_id: number;
+    article_id : number;
+    author : string;
 }
+
+
+
+
+
 
 export interface ISingleComment{
     comment : Icomment
@@ -68,11 +74,10 @@ const Comments : React.FC<Props> = ({articleId}) => {
 
     const fetchData = async (SortProperty: SortPropertyEnum) => {
         setisLoading(true);
-        const result = await axios.get(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles/${articleId}/comments?sortBy=${getFilterTagByReduxData(SortProperty).valueOf()}&order=desc`);
+        const result = await axios.get<Icomment[]>(`https://myawesomeapp.me/api/article/${articleId}/comments?sortBy=${getFilterTagByReduxData(SortProperty).valueOf()}&order=desc`);
         console.log('data from comments element', result.data);
         setLoadedComments(result.data);
         setisLoading(false);
-        
       };
 
     
@@ -96,13 +101,13 @@ const Comments : React.FC<Props> = ({articleId}) => {
 
 
     const filterRootComments = (): Icomment[] =>{
-        const result =  LoadedComments.filter((comment) => comment.replyId === null);
+        const result =  LoadedComments.filter((comment) => comment.reply_id === null);
         return result;
     }
     
 
       const getReplies = (targetComment : Icomment): Icomment[] => {
-        const result =  LoadedComments.filter((comment) => comment.replyId === Number(targetComment.id));
+        const result =  LoadedComments.filter((comment) => comment.reply_id === Number(targetComment.id));
 
         
 
@@ -120,8 +125,8 @@ const Comments : React.FC<Props> = ({articleId}) => {
             <div className="comments-history">
             {
                 isLoading ?  
-                    [...new Array(8)].map( (_, index) => <CommentSkeleton key = {index}/>  ) : 
-                    
+                    [...new Array(8)].map( (_, index) => <CommentSkeleton key = {index} big = {false}/>  ) 
+                    : 
                     filterRootComments().map((comment: Icomment) => (
                         <Singlecomment key = {comment.id} fetchData={() => fetchData(SortProperty)} comment = {comment} replies = {getReplies(comment)} />
                     ))

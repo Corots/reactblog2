@@ -13,7 +13,7 @@ import { addBookmark, addFavorite } from '../../redux/favorite/slice';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
-const  IconCheckboxes  : React.FC<{ articleId : string }> = ({articleId}) => {
+const  IconCheckboxes  : React.FC<{ articleId : number }> = ({articleId}) => {
 
   const dispatch = useAppDispatch();
   const {idFavorites, idBookmarks} = useSelector(favoriteFilter);

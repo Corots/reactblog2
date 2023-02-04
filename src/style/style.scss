@@ -42,7 +42,11 @@ button {
 
 
 
-.header{
+//   #header{
+    
+//   }
+
+  .header{
     /* header */
 
 
@@ -59,6 +63,18 @@ button {
     height: 102px;
 
     background: #FFFFFF;
+
+    position: fixed;
+    top: 0;
+    z-index: 4;
+    border-bottom: 1px solid #cac8c8;
+    transition: top 0.5s;
+
+
+    &-hidden{
+        top : -102px;
+    }
+    
 
     .logo{
         /* logo */
@@ -175,13 +191,9 @@ button {
 
             .avatar{
                 position: absolute;
-                width: 40px;
-                height: 39px;
                 left: 17px;
                 top: 10px;
 
-                border-radius: 50%;
-                background-color: red;
             }
 
             .name{
@@ -254,6 +266,11 @@ button {
                     border-top: 1px solid #D9D9D9;
                     // border-bottom: 1px solid #D9D9D9;
                     position: relative;
+
+                    &-logout:hover{
+                        cursor: pointer;
+                        background: #ededed;
+                    }
 
                     .logo{
                         /* Vector */
@@ -328,26 +345,39 @@ button {
 
 
         .login-frame{
-            /* login frame */
-            
-        
             box-sizing: border-box;
-        
             position: absolute;
             width: 314px;
-            height: 273px;
-            left: -274px;
-            top: 47px;
-        
+            right: 44px;
+            top: 85px;
             background: #FFFFFF;
-            /* My grey */
-        
             border: 1px solid #B0B0B0;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             border-radius: 5px;
-
             z-index: 2;
-            display: none;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 20px;
+            padding: 30px 20px;
+            // justify-content: space-between;
+
+            // opacity: 0;
+            // transition: opacity 4.5s;
+            
+
+            // &-open{
+            //     opacity: 1;
+            // }
+
+
+
+            form{
+                display: flex;
+                flex-direction: column;
+                gap: 22px;
+            }
 
             input:focus {
                 outline: 1px solid rgb(221, 221, 221); /* adjust the value to change the width and color of the outline */
@@ -359,16 +389,7 @@ button {
               
 
             .login{
-                /* Rectangle 4 */
-
-
-
-                position: absolute;
-                width: 256px;
                 height: 32px;
-                left: 23px;
-                top: 39px;
-
                 background: #F9F9F9;
                 border: 1px solid rgba(0, 0, 0, 0.3);
                 border-radius: 5px;
@@ -377,24 +398,16 @@ button {
 
 
             .password{
-
-            position: absolute;
-            width: 256px;
             height: 32px;
-            left: 23px;
-            top: 94px;
-
             background: #F9F9F9;
             border: 1px solid rgba(0, 0, 0, 0.3);
             border-radius: 5px;
             }
 
             button.button-login{
-                position: absolute;
-                width: 256px;
+           
                 height: 32px;
-                left: 23px;
-                top: 149px;
+     
                 border-radius: 5px;
                 color: white;
                 
@@ -423,23 +436,19 @@ button {
 
             // * Dont have account sector
             .DontHaveAccFrame{
-                @include absolute-width-height(256px, 17px);
-                left: 23px;
-                top: 204px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
 
                 .left-text{
-                    position: absolute;
-                    left: 1px;
-                    top: 0;
+
 
                     @include text-style($color-left-reg-menu);
                 }
 
                 a.right-text{
                     /* Register */
-                    position: absolute;
-                    right: 1px;
-                    top: 0;
+
 
                     @include text-style($color-right-reg-menu);                        
                 }
@@ -448,15 +457,15 @@ button {
 
             // * Forget password sector
             .ForgetPassFrame{
-                @include absolute-width-height(256px, 15px);
-                left: 23px;
-                top: 238px;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+ 
 
 
                 .left-text{
-                    position: absolute;
-                    left: 1px;
-                    top: 0;
+      
 
                     @include text-style($color-left-reg-menu);  
 
@@ -464,13 +473,18 @@ button {
 
 
                 a.right-text{
-                    position: absolute;
-                    right: -2px;
-                    top: 0;
+        
 
                     @include text-style($color-right-reg-menu);  
                 }
             }
+
+            .Error{
+                color: red;
+                text-align: center;
+            }
+
+
 
         }
 
@@ -491,6 +505,8 @@ button {
 
 
     position: relative;
+    margin-top: 102px;
+
     width: 100%;
     height: 399px;
 
@@ -1110,36 +1126,18 @@ button {
 
     .single-article-pic{
         position: relative;
-        width: 90%;
+        width: 54%;
         max-width: 1300px;
         border: 1px solid #B0B0B0;
-
-        // width: 50%;
-        // height: 100%;
-        // padding-top: 75%;
-        // box-sizing: border-box;
-        // border: solid 1px black;
-
-
-
         border-radius: 10px;
+        height: 300px;
 
-        // @media (max-width: nth($breakpoints, 1)) {
-        //     &{
-        //         width: 100%;
-        //         height: 0;
-        //         padding-bottom: 15%;
-        //         // object-fit: cover;
-        //         // object-position: center;
-        //         // box-sizing: border-box;
-        //         // border: solid 1px black;
-
-        //     }
-        // }
-    
-    
-        // padding: 0 10px;
-    
+        @media (max-width: 900px) {
+            & {
+                width: 74%;
+            }
+        }
+        
     }
 
     .single-article-text{

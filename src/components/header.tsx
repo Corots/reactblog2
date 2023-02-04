@@ -4,14 +4,15 @@ import guy from '../assets/img/guy.jpg';
 import bookmark from '../assets/bookmark.svg';
 import profile from '../assets/profile.svg';
 import { Link } from 'react-router-dom';
-import Userpopup from './userpopup';
+import Userpopup from './Login/LoggedIn';
 import Avatar from '@mui/material/Avatar';
 import Favorite from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Badge from '@mui/material/Badge';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { favoriteFilter } from '../redux/favorite/selectors';
-
+import NotLoggedIn from './Login/NotLoggedIn';
+import LoginCheck from './Login/LoginCheck';
 
 type Props = {}
 
@@ -20,32 +21,68 @@ const Header  : React.FC = (props: Props) => {
 
     const popupMenuRef = useRef<HTMLDivElement>(null);
     const [menuVisible, setMenuVisible] = useState(false);
-
-
-    const {idFavorites, idBookmarks} = useSelector(favoriteFilter);
+    const avatarRef = useRef<HTMLDivElement>(null);
+    const {idFavorites, idBookmarks, name, logged} = useSelector(favoriteFilter);
     
+    const [headerAppear, setHeaderAppear] = useState(true)
+    const [lastScroll, setLastScroll] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScroll = window.scrollY
+            if (lastScroll  < currentScroll && currentScroll > 102){
+                setHeaderAppear(false)
+
+                menuVisible && setMenuVisible(false)
+
+            }
+            else {
+                setHeaderAppear(true) 
+            }
+
+            setLastScroll(currentScroll);
+        };
+
+    
+        window.addEventListener("scroll", handleScroll);
+
+
+
+        
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [lastScroll])
 
     const onClose =() => {
         setMenuVisible(false);
       }
 
+      
 
-    useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-        if (popupMenuRef.current && !popupMenuRef.current.contains(event.target as Node)) {
-        onClose();
-        }
-    };
-    document.addEventListener('mouseup', handleClickOutside);
-    return () => {
-        document.removeEventListener('mouseup', handleClickOutside);
-    };
-    }, [onClose]);
+
+    // useEffect(() => {
+    // const handleClickOutside = (event: MouseEvent) => {
+    //     if (popupMenuRef.current && !popupMenuRef.current.contains(event.target as Node)) {
+    //     onClose();
+    //     }
+    // };
+    // document.addEventListener('mouseup', handleClickOutside);
+    // return () => {
+    //     document.removeEventListener('mouseup', handleClickOutside);
+    // };
+    // }, [onClose]);
+
+
+    const handleAvatarClick = () => {
+        setMenuVisible(!menuVisible)
+    }
 
 
 
   return (
-    <div className="header">
+    <div className={headerAppear ? "header" : "header header-hidden"}>
         
         <Link to="/">
             <div className="text">AwesomeBlog</div>
@@ -54,21 +91,9 @@ const Header  : React.FC = (props: Props) => {
 
         <div className="control">
 
-            {/* <div className="fav">
-                <img src={bookmark} className="icon" alt="image description"/>
-
-                <div className="number">
-                    <div className="eclispe"></div>
-                    <div className="digit">2</div>
-                </div>
-            </div> */}
-
-
+            {/* ! Check if menu visible. If yes - show a component which choose the popup menu */}
             {menuVisible && (
-                <div className="account" ref={popupMenuRef}>
-                    <Userpopup/>
-                </div>
-                
+                    <LoginCheck avatarRef = {avatarRef} menuVisible = {menuVisible} setMenuVisible = {setMenuVisible}/>
             )}
 
             <Link to={`/favorite`}>
@@ -89,28 +114,11 @@ const Header  : React.FC = (props: Props) => {
             
 
             <div className='clickable'>
-                <Avatar onClick={() => setMenuVisible(!menuVisible)}/>
+                {/* ! Check if user logged. Choose the avatar depends on it.  */}    
+                {/* If person click the avatar - change the status of menu showing (True/false) */}
+                <Avatar onClick={handleAvatarClick} alt = {name ? name[0].toUpperCase() + name.slice(1) : name}  src={logged ? "/avatars/${name}" : "" } ref={avatarRef} /> 
             </div>
 
-
-            {/* <div className="login-frame">
-                <form>
-                    <input type="text" id="username" name="username" className="login" placeholder="Enter your username"/>
-                    <input type="password" id="password" name="password" className="password"
-                        placeholder="Enter your password"/>
-                    <button type="submit" className="button-login">Login</button>
-                </form>
-
-                <div className="DontHaveAccFrame">
-                    <div className="left-text">Dont have an account?</div>
-                    <a href="register.html" className="right-text">Register</a>
-                </div>
-
-                <div className="ForgetPassFrame">
-                    <div className="left-text">Lost your password?</div>
-                    <a href="restorepass.html" className="right-text">Restore password</a>
-                </div>
-            </div> */}
 
             
         </div>

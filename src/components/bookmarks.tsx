@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom';
 
 const Bookmarks = () => {
 
-  const [Myfavorite, setMyfavorite] = useState<Iarticle[]>([]);
+  const [Mybookmarks, setMybookmarks] = useState<Iarticle[]>([]);
   const [isLoading, setisLoading] = useState(true);
 
 
@@ -38,25 +38,25 @@ useEffect(() => {
   const results: Iarticle[] = [];
   let requestsLeft = idBookmarks.length;
 
-  const makeRequest = async (id: string) => {
-    const result = await axios.get(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles/${id}`);
+  const makeRequest = async (id: number) => {
+    const result = await axios.get(`https://myawesomeapp.me/api/article/${id}`);
     results.push(result.data);
     requestsLeft--;
 
     if (requestsLeft === 0 || !requestsLeft) {
-      setMyfavorite(results);
+      setMybookmarks(results);
       setisLoading(false);
     }
   };
 
   if (idBookmarks.length === 0) {
     setisLoading(false);
-    setMyfavorite([]);
+    setMybookmarks([]);
   } else {
     idBookmarks.forEach(id => makeRequest(id));
   }
   
-  // setMyfavorite(results);
+  // setMybookmarks(results);
   // setisLoading(false);
 }, [idBookmarks]);
 
@@ -70,11 +70,11 @@ useEffect(() => {
     <div className="context">
       <div className="row-articles">
 
-      
+      {isLoading || Mybookmarks.length ? <div className='no-fav'>Bookmarked articles </div> : <></>}
 
       {
-        isLoading ?  [...new Array(8)].map( (_, index) => <Skeleton key = {index}/>  ) : Myfavorite.length ?  
-        Myfavorite.map((myfavorite) => <ArticleCart key={myfavorite.id} article={myfavorite}/>) :
+        isLoading ?  [...new Array(8)].map( (_, index) => <Skeleton key = {index}/>  ) : Mybookmarks.length ?  
+        Mybookmarks.map((myfavorite) => <ArticleCart key={myfavorite.id} article={myfavorite}/>) :
         <>
           <div className='no-fav'>You don't add any articles as your bookmarks. Come back to the <Link to="/"> main page </Link> </div>
         </>

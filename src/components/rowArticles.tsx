@@ -18,11 +18,12 @@ type Props = {}
 
 
 export interface Iarticle {
-  id: string;
+  id: number;
   title: string;
   text: string;
   author: string;
-  date: number;
+  date: string;
+  img : string
 }
 
 
@@ -69,7 +70,7 @@ const RowArticles = (props: Props) => {
 
   interface ExampleObject {
     author?: string;
-    title?: string;
+    q?: string;
 
     sortBy : string;
     order : string;
@@ -91,15 +92,12 @@ const RowArticles = (props: Props) => {
         order : searchParams.SortProperty.includes('-') ? 'asc' : 'desc',
       }
       if (searchParams.SearchAuthor) finalSearchParams.author = searchParams.SearchAuthor
-      if (searchParams.SearchText) finalSearchParams.title = searchParams.SearchText
+      if (searchParams.SearchText) finalSearchParams.q = searchParams.SearchText
 
 
 
-      const result = await axios.get(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles`, { params: finalSearchParams } );
-      setArticles(result.data);
-
-      console.log('data from rowarticles element', result.data);
-      
+      const result   = await axios.get<{articles : Iarticle[]}>(`https://myawesomeapp.me/api/articles`, { params: finalSearchParams }  );
+      setArticles(result.data.articles);      
     };
 
     fetchData().then(() => {setisLoading(false);});

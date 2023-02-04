@@ -17,6 +17,8 @@ import IconMenu from './MaterialUI/IconMenu';
 import SaveIcon from '@mui/icons-material/Save';
 
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { favoriteFilter } from '../redux/favorite/selectors';
 
 
 
@@ -68,15 +70,18 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
     
     const [newComment, setnewComment] = useState(comment);
 
+    const {logged, name} = useSelector(favoriteFilter);
+
     const defaultReply = {
-        author: 'John Dada',
+        id: 1,
         text: '',
+        reply_id: null,
         likes: 0,
         dislikes: 0,
-        replyId: null,
-        id: '',
-        articleId: comment.articleId,
-        date : comment.date,
+        date : new Date().toString(),
+        author: 'John Dada',
+        author_id: 1,
+        article_id : comment.article_id,
     }
     
     const [newReply, setnewReply] = useState<Icomment>(defaultReply);
@@ -108,7 +113,10 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
     useEffect(() => {
         const deleteReq = async () => {
             try {
-                await axios.delete(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles/${comment.articleId}/comments/${comment.id}`);
+                const query = {
+                    token : localStorage.getItem("access_token"),
+                }
+                await axios.delete(`https://myawesomeapp.me/api/comment/${comment.id}`, {params : query}   );
             } catch (error) {
               console.log(error);
             } finally {
@@ -142,7 +150,7 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
     const getCommentFromApi = async () => {
         // Fetch the updated comments from the API
-        const updatedComment = await axios.get(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles/${comment.articleId}/comments/${comment.id}`);
+        const updatedComment = await axios.get(`https://myawesomeapp.me/api/comment/${comment.id}` );
         comment = updatedComment.data
         console.log('New comment from api is ', comment);
         setnewComment(comment);
@@ -162,7 +170,7 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
           setIsReplying(!IsReplying);
 
           if (IsReplying){
-            setnewReply({ ...newReply, text: `@${newComment.id} `, replyId : newComment.replyId || Number(newComment.id) })
+            setnewReply({ ...newReply, text: `@${newComment.id} `})
           }
           else{
             setnewReply(defaultReply);
@@ -179,29 +187,37 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
       const PostReplyHandler = async () => {
         try {
-            console.log('new date is', new Date())
-            const postdata : Icomment = {...newReply, date : new Date() }
-            console.log('seems like installed new date', postdata)
-
-
-            const response = await axios.post(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles/${newComment.articleId}/comments/`, postdata);
-        } catch (error) {
-          console.error(error);
-        }
-        finally{
-            console.log('REPLY ADDED!', newReply);
+            const query = {
+                token : localStorage.getItem("access_token"),
+                reply_id : comment.reply_id || comment.id,
+            }
+            const body = {
+                text : newReply.text,
+                date : new Date().toISOString(),
+            }
+            const response = await axios.post(`https://myawesomeapp.me/api/article/${comment.article_id}/comment`, body, {params : query});
             setIsReplying(false);
             setnewReply(defaultReply);
             fetchData();
+        } catch (error) {
+            console.error(error);
         }
-
-    
-      };
+    };
 
 
       const updateComment = async (updatedComment : any) => {
             try {
-                const response = await axios.put(`https://63d480dc0e7ae91a009e281b.mockapi.io/api/v1/articles/${comment.articleId}/comments/${comment.id}`, updatedComment);
+
+                const query = {
+                    token : localStorage.getItem("access_token")
+                }
+
+                const body = {
+                    text : updatedComment.text,
+                    date : new Date().toISOString(),
+                }
+
+                const response = await axios.put(`https://myawesomeapp.me/api/comment/${comment.id}`,body, {params : query} );
             } catch (error) {
                 console.error(error);
             }
@@ -273,16 +289,19 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
         <>
             
 
-            <div className={newComment.replyId ? "comment comment-reply" : "comment"}>
+            <div className={newComment.reply_id ? "comment comment-reply" : "comment"}>
             <div className="author-info">
                 <div className="user">
                     {/* <img src={guy} className="author-image" /> */}
-                    <Avatar alt={newComment.author} src={guy} />
+
+                   
+
+                    <Avatar alt={newComment.author} src="sdf" />
                     <p>{newComment.author}</p>
                 </div>
                 <div className="eclispe-menu-wrapper">
 
-                    {!editing && !IsReplying &&
+                    {!editing && !IsReplying && logged && name == comment.author &&
 
                     <div>
                         {/* <div className="ellipse"></div>
@@ -344,8 +363,8 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
                         <>
                         <div className="buttons-reaction">
 
-                            <Button color="success" variant="outlined" onClick={HandleLike} endIcon={<ThumbUpIcon />}>{newComment.likes}</Button>
-                            <Button color="error" variant="outlined" onClick={HandleDisike} endIcon={<ThumbUpIcon />}>{newComment.dislikes}</Button>
+                            <Button disabled color="success" variant="outlined" onClick={HandleLike} endIcon={<ThumbUpIcon />}>{newComment.likes}</Button>
+                            <Button disabled color="error" variant="outlined" onClick={HandleDisike} endIcon={<ThumbUpIcon />}>{newComment.dislikes}</Button>
                         </div>
                         <div className="reply-button" onClick={handleStartReply}>Reply</div>
                         <div className="hours-ago">{timeAgo}</div>
@@ -369,8 +388,8 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
                     label="Leave a reply"
                     multiline
                     rows={8}
-                    defaultValue={`@${newComment.id} `} 
-                    onChange={e => setnewReply({ ...newReply, text: e.target.value, replyId : newComment.replyId || Number(comment.id) })}
+                    defaultValue={`@${newComment.author[0].toUpperCase + newComment.author.slice(1)} `} 
+                    onChange={e => setnewReply({ ...newReply, text: e.target.value, reply_id : newComment.reply_id || Number(comment.id) })}
                 /> 
                 
                 <div className="controlpanel">
