@@ -13,16 +13,28 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { favoriteFilter } from '../redux/favorite/selectors';
 import NotLoggedIn from './Login/NotLoggedIn';
 import LoginCheck from './Login/LoginCheck';
+import LoggedIn from './Login/LoggedIn';
+import Register from './Login/Register';
 
 type Props = {}
 
+export interface OptionProps {
+    avatarRef: React.RefObject<HTMLDivElement>;
+    MenuVisible: boolean;
+    setMenuVisible: React.Dispatch<React.SetStateAction<boolean>>
+    setSelected: React.Dispatch<React.SetStateAction<number>>
+  }
 
 const Header  : React.FC = (props: Props) => {
 
     const popupMenuRef = useRef<HTMLDivElement>(null);
+
     const [menuVisible, setMenuVisible] = useState(false);
     const avatarRef = useRef<HTMLDivElement>(null);
+    const [selected, setSelected] = useState(0)
+
     const {idFavorites, idBookmarks, name, logged} = useSelector(favoriteFilter);
+
     
     const [headerAppear, setHeaderAppear] = useState(true)
     const [lastScroll, setLastScroll] = useState(0);
@@ -80,7 +92,7 @@ const Header  : React.FC = (props: Props) => {
     }
 
 
-
+    
   return (
     <div className={headerAppear ? "header" : "header header-hidden"}>
         
@@ -93,7 +105,11 @@ const Header  : React.FC = (props: Props) => {
 
             {/* ! Check if menu visible. If yes - show a component which choose the popup menu */}
             {menuVisible && (
-                    <LoginCheck avatarRef = {avatarRef} menuVisible = {menuVisible} setMenuVisible = {setMenuVisible}/>
+
+            logged ? 
+            <LoggedIn avatarRef= {avatarRef}  MenuVisible = {menuVisible} setMenuVisible = {setMenuVisible} setSelected = {setSelected}  /> 
+            :    
+            <NotLoggedIn avatarRef= {avatarRef} MenuVisible = {menuVisible} setMenuVisible = {setMenuVisible} setSelected = {setSelected} /> 
             )}
 
             <Link to={`/favorite`}>

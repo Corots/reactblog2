@@ -8,13 +8,14 @@ import { favoriteFilter } from '../../redux/favorite/selectors';
 import { useAppDispatch } from '../../redux/store';
 import { set_unlogged } from '../../redux/favorite/slice';
 import Avatar from '@mui/material/Avatar';
+import { OptionProps } from '../header';
 
 type PopupClick = MouseEvent & {
     path: Node[];
   };
 
 
-const LoggedIn : React.FC<{avatarRef: React.RefObject<HTMLDivElement>, menuVisible : boolean,  setMenuVisible :React.Dispatch<React.SetStateAction<boolean>> }>  = ({avatarRef,menuVisible, setMenuVisible }) => {
+const LoggedIn : React.FC<OptionProps>  = ({avatarRef, MenuVisible, setMenuVisible, setSelected }) => {
 
     const {idFavorites, idBookmarks, name} = useSelector(favoriteFilter);
 
@@ -45,7 +46,7 @@ const LoggedIn : React.FC<{avatarRef: React.RefObject<HTMLDivElement>, menuVisib
 
 
 
-  if (!menuVisible) return <></>
+  if (!MenuVisible) return <></>
   return (
 
     

@@ -444,6 +444,18 @@ button {
 
 
                     @include text-style($color-left-reg-menu);
+
+                    &-clickable{
+
+                        color :rgb(65, 148, 243);
+                        &:hover{
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
+
+                    }
+                    
+                    
                 }
 
                 a.right-text{

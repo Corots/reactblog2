@@ -306,6 +306,13 @@ button {
   line-height: 15px;
   color: #000000;
 }
+.header .control .login-frame .DontHaveAccFrame .left-text-clickable {
+  color: rgb(65, 148, 243);
+}
+.header .control .login-frame .DontHaveAccFrame .left-text-clickable:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 .header .control .login-frame .DontHaveAccFrame a.right-text {
   /* Register */
   font-family: "Inter";
