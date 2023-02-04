@@ -1,3 +1,5 @@
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { set_logged } from "../../redux/favorite/slice";
@@ -10,6 +12,7 @@ import { useAppDispatch } from "../../redux/store";
 interface ILoginResponse {
   success: boolean;
   access_token?: string;
+  refresh_token? : string;
   message?: string;
 
   userdata? : IUserInfo
@@ -44,11 +47,12 @@ const NotLoggedIn: React.FC<{avatarRef: React.RefObject<HTMLDivElement>, MenuVis
       if (data.success){
 
           //  ! if token is here
-         if(data.access_token){
+         if(data.access_token && data.refresh_token){
           
             // ! Add token to a local storage and clear in before
             localStorage.clear();
             localStorage.setItem('access_token', data.access_token);
+            localStorage.setItem('refresh_token', data.refresh_token);
 
             // ! Update data in redux
             if (data.userdata)
@@ -104,9 +108,11 @@ const NotLoggedIn: React.FC<{avatarRef: React.RefObject<HTMLDivElement>, MenuVis
   return (
     <div className="login-frame" ref = {wrapperNotloggedRef}>
         <form onSubmit={handleSubmit}>
-            <input type="text" id="username" name="username" className="login" placeholder="Enter your username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-            <input type="password" id="password" name="password" className="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            <button type="submit" className="button-login">Login</button>
+            <TextField size="small"  id="outlined-basic"  label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
+            <TextField  size="small"  id="outlined-basic" label="Password" variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
+            
+
+            <Button variant="contained" disableElevation>Login</Button>
         </form>
 
         <div className="DontHaveAccFrame">

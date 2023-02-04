@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import { refreshFavorites, refreshBookmark, set_logged } from './redux/favorite/slice';
  import { IUserInfo } from './redux/favorite/types';
+import CheckApi from './components/auth/useAuth';
 
 
 const container = document.getElementById('root')!;
@@ -24,19 +25,19 @@ if (access_token){
   console.log('token exist');
 
   const updateParams = () => {
-      axios.get<IUserInfo>('https://myawesomeapp.me/api/user', {params : {token : access_token}})
+
+    const MyPromise = (access_token : string) => axios.get<IUserInfo>('https://myawesomeapp.me/api/user', {params : {token : access_token}})
+    CheckApi(MyPromise)
     .then(res => {
-      const data = res.data;
-      store.dispatch(set_logged({logged : true, img : data.img, 
+      const data = res?.data;
+      
+      {data && store.dispatch(set_logged({logged : true, img : data.img, 
         idFavorites : data.idFavorites, 
         idBookmarks : data.idBookmarks,
         name : data.username,
-      }));
-        
+      }));}
     })
-    .catch(err => {
-      console.error(err);
-    });
+
   }
   window.onload = function() {
     updateParams();

@@ -19,6 +19,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { favoriteFilter } from '../redux/favorite/selectors';
+import CheckApi from './auth/useAuth';
 
 
 
@@ -113,10 +114,16 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
     useEffect(() => {
         const deleteReq = async () => {
             try {
-                const query = {
-                    token : localStorage.getItem("access_token"),
+
+                const MyDeletePromise = (access_token : string) => {
+                    const query = {
+                        token : access_token,
+                    }
+                    return axios.delete(`https://myawesomeapp.me/api/comment/${comment.id}`, {params : query}   );
                 }
-                await axios.delete(`https://myawesomeapp.me/api/comment/${comment.id}`, {params : query}   );
+
+                await CheckApi(MyDeletePromise);
+
             } catch (error) {
               console.log(error);
             } finally {
@@ -167,18 +174,25 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
     
       const handleStartReply = () => {
-          setIsReplying(!IsReplying);
-
-          if (IsReplying){
-            setnewReply({ ...newReply, text: `@${newComment.id} `})
-          }
-          else{
-            setnewReply(defaultReply);
-          }
+          
+          if (!IsReplying){
+            const greeting =  `@${newComment.author[0].toUpperCase() + newComment.author.slice(1)} ` 
+            {newReply.text != greeting && !newReply.text.includes(greeting) && setnewReply({ ...newReply, text: greeting})} 
+            }
+            // else{
+            //     setnewReply(defaultReply);
+            // }
+            setIsReplying(!IsReplying);
       }
 
 
+
+
+
+
       const CancelReplyHandler = () =>{
+        setnewReply(defaultReply);
+
         setIsReplying(false);
       }
 
@@ -187,15 +201,21 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
       const PostReplyHandler = async () => {
         try {
-            const query = {
-                token : localStorage.getItem("access_token"),
-                reply_id : comment.reply_id || comment.id,
+
+            const MyPostPromise = (access_token : string) => {
+                const query = {
+                    token : access_token,
+                    reply_id : comment.reply_id || comment.id,
+                }
+                const body = {
+                    text : newReply.text,
+                    date : new Date().toISOString(),
+                }
+
+                return axios.post(`https://myawesomeapp.me/api/article/${comment.article_id}/comment`, body, {params : query});
             }
-            const body = {
-                text : newReply.text,
-                date : new Date().toISOString(),
-            }
-            const response = await axios.post(`https://myawesomeapp.me/api/article/${comment.article_id}/comment`, body, {params : query});
+            
+            await CheckApi(MyPostPromise); 
             setIsReplying(false);
             setnewReply(defaultReply);
             fetchData();
@@ -208,16 +228,22 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
       const updateComment = async (updatedComment : any) => {
             try {
 
-                const query = {
-                    token : localStorage.getItem("access_token")
-                }
 
-                const body = {
-                    text : updatedComment.text,
-                    date : new Date().toISOString(),
+                const MyUpdatePromise = (access_token : string) => {
+                    const query = {
+                        token : access_token
+                    }
+    
+                    const body = {
+                        text : updatedComment.text,
+                        date : new Date().toISOString(),
+                    }
+    
+                    return axios.put(`https://myawesomeapp.me/api/comment/${comment.id}`,body, {params : query} );
                 }
+                
+                await CheckApi(MyUpdatePromise);
 
-                const response = await axios.put(`https://myawesomeapp.me/api/comment/${comment.id}`,body, {params : query} );
             } catch (error) {
                 console.error(error);
             }
@@ -388,7 +414,8 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
                     label="Leave a reply"
                     multiline
                     rows={8}
-                    defaultValue={`@${newComment.author[0].toUpperCase + newComment.author.slice(1)} `} 
+                    // defaultValue={`@${newComment.author[0].toUpperCase() + newComment.author.slice(1)} `} 
+                    defaultValue={newReply.text} 
                     onChange={e => setnewReply({ ...newReply, text: e.target.value, reply_id : newComment.reply_id || Number(comment.id) })}
                 /> 
                 

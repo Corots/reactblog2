@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import ColorToggleButton from './MaterialUI/ColorToggleButton';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { favoriteFilter } from '../redux/favorite/selectors';
+import CheckApi from './auth/useAuth';
 
 
 
@@ -38,17 +39,21 @@ const CommentForm : React.FC<IForm> = ({fetchData,  articleId}) => {
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
 
-        const query = {
-            token : localStorage.getItem("access_token"),
-        }
-        const body = {
-            text : newComment.text,
-            date : new Date().toISOString(),
-        }
-
-
+        
         event.preventDefault();
-        axios.post(`https://myawesomeapp.me/api/article/${articleId}/comment`, body, {params : query})
+        const MyPromise = (access_token : string) => {
+            const query = {
+                token : access_token,
+            }
+            const body = {
+                text : newComment.text,
+                date : new Date().toISOString(),
+            }
+
+            return axios.post(`https://myawesomeapp.me/api/article/${articleId}/comment`, body, {params : query})
+        }
+        
+        CheckApi(MyPromise)
           .then(response => {
             console.log(response);
             setNewComment(defComment);

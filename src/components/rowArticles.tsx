@@ -13,6 +13,7 @@ import { FilterSliceState, SortPropertyEnum } from '../redux/filter/types';
 import { setSearch } from '../redux/filter/slice';
 import { useAppDispatch } from '../redux/store';
 import Skeleton from './ArticleCart/skeleton';
+import CheckApi from './auth/useAuth';
 
 type Props = {}
 
@@ -96,8 +97,10 @@ const RowArticles = (props: Props) => {
 
 
 
-      const result   = await axios.get<{articles : Iarticle[]}>(`https://myawesomeapp.me/api/articles`, { params: finalSearchParams }  );
-      setArticles(result.data.articles);      
+      const promiseArticles = axios.get<{articles : Iarticle[]}>(`https://myawesomeapp.me/api/articles`, { params: finalSearchParams }  );
+      const data = await promiseArticles
+      // const data = await CheckApi(promiseArticles)
+      setArticles(data.data.articles);      
     };
 
     fetchData().then(() => {setisLoading(false);});

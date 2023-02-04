@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import CheckApi from '../../components/auth/useAuth';
 import { FavoriteSliceState, ILoginInfo } from './types';
 
 
@@ -51,7 +52,8 @@ const favoriteSlice = createSlice({
 
         const access_token = localStorage.getItem('access_token');
         if (state.logged && access_token){
-          axios.post(`https://myawesomeapp.me/api/article/${action.payload}/favorite?token=${access_token}`)
+          const MyUpdatePromise = (access_token : string) =>  axios.post(`https://myawesomeapp.me/api/article/${action.payload}/favorite?token=${access_token}`)
+          CheckApi(MyUpdatePromise);
         }
         else{
           localStorage.setItem('favorites', JSON.stringify(state.idFavorites));
@@ -66,7 +68,8 @@ const favoriteSlice = createSlice({
 
         const access_token = localStorage.getItem('access_token');
         if (state.logged && access_token){
-          axios.delete(`https://myawesomeapp.me/api/article/${action.payload}/favorite?token=${access_token}`)
+          const MyDeletePromise = (access_token : string) =>  axios.delete(`https://myawesomeapp.me/api/article/${action.payload}/favorite?token=${access_token}`)
+          CheckApi(MyDeletePromise);
         }
         else{
           localStorage.setItem('favorites', JSON.stringify(state.idFavorites));
@@ -93,7 +96,10 @@ const favoriteSlice = createSlice({
 
         const access_token = localStorage.getItem('access_token');
         if (state.logged && access_token){
-          axios.post(`https://myawesomeapp.me/api/article/${action.payload}/bookmark?token=${access_token}`)
+
+          const MyUpdatePromise = (access_token : string) =>  axios.post(`https://myawesomeapp.me/api/article/${action.payload}/bookmark?token=${access_token}`)
+          CheckApi(MyUpdatePromise);
+
         }
         else{
           localStorage.setItem('bookmarks', JSON.stringify(state.idBookmarks));
@@ -104,7 +110,8 @@ const favoriteSlice = createSlice({
 
         const access_token = localStorage.getItem('access_token');
         if (state.logged && access_token){
-          axios.delete(`https://myawesomeapp.me/api/article/${action.payload}/bookmark?token=${access_token}`)
+          const MyDeletePromise = (access_token : string) =>  axios.delete(`https://myawesomeapp.me/api/article/${action.payload}/bookmark?token=${access_token}`)
+          CheckApi(MyDeletePromise);
         }
         else{
           localStorage.setItem('bookmarks', JSON.stringify(state.idBookmarks));
