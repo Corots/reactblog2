@@ -19,6 +19,7 @@ const root = createRoot(container);
 
 
 
+
 const access_token = localStorage.getItem('access_token')
 
 if (access_token){
@@ -56,7 +57,7 @@ else{
 
 
 root.render(
-
+  
     <BrowserRouter>
       <Provider store={store}>
         <App />
@@ -64,6 +65,11 @@ root.render(
     </BrowserRouter>
 
 );
+
+
+
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

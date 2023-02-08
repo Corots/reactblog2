@@ -4,6 +4,26 @@
   box-sizing: border-box;
 }
 
+#preloader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  opacity: 0.7;
+}
+#preloader img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 a {
   text-decoration: none;
 }
@@ -126,18 +146,20 @@ button {
   right: 38px;
   top: 79px;
   width: 221px;
-  height: 218px;
   border: 1px solid #B0B0B0;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   z-index: 2;
 }
-.header .control .account .avatar {
+.header .control .account .user-top-info {
+  height: 60px;
+}
+.header .control .account .user-top-info .avatar {
   position: absolute;
   left: 17px;
   top: 10px;
 }
-.header .control .account .name {
+.header .control .account .user-top-info .name {
   position: absolute;
   width: 64px;
   height: 15px;
@@ -151,7 +173,7 @@ button {
   /* identical to box height */
   color: #000000;
 }
-.header .control .account .occup {
+.header .control .account .user-top-info .occup {
   /* Author, redactor */
   position: relative;
   width: 93px;
@@ -173,17 +195,14 @@ button {
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  position: absolute;
   width: 100%;
-  left: 0px;
-  top: 58px;
+  display: flex;
+  flex-direction: column;
 }
 .header .control .account .menu-elems a {
+  text-decoration: none;
+  color: inherit;
   width: 100%;
-}
-.header .control .account .menu-elems a .elem:hover {
-  cursor: pointer;
-  background: #ededed;
 }
 .header .control .account .menu-elems .elem {
   width: 100%;
@@ -252,6 +271,7 @@ button {
   flex-direction: column;
   gap: 20px;
   padding: 30px 20px;
+  min-height: 291px;
 }
 .header .control .login-frame form {
   display: flex;
@@ -334,6 +354,13 @@ button {
   font-size: 12px;
   line-height: 15px;
   color: #000000;
+}
+.header .control .login-frame .ForgetPassFrame .left-text-clickable {
+  color: rgb(65, 148, 243);
+}
+.header .control .login-frame .ForgetPassFrame .left-text-clickable:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 .header .control .login-frame .ForgetPassFrame a.right-text {
   font-family: "Inter";
@@ -427,6 +454,14 @@ button {
   .anouncment .image {
     display: none;
   }
+}
+
+.restore-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 10px;
+  width: min(400px, 90%);
 }
 
 .search {
@@ -830,8 +865,7 @@ button {
   font-style: italic;
 }
 .font-underline {
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
+  text-decoration-line: underline;
 }
 
 .user {
@@ -1095,11 +1129,24 @@ button {
   padding: 0px;
   gap: 56px;
 }
+.comment-section .comments-history .comment .controlpanel-post {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  vertical-align: center;
+  padding: 0px;
+  gap: 56px;
+}
+.comment-section .comments-history .comment .controlpanel-post .buttons-reaction {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
 @media (max-width: 580px) {
   .comment-section .comments-history .comment .controlpanel {
     display: grid;
-    grid-template-columns: 190px 10px;
     gap: 15px 5px;
+    grid-template-columns: 160px auto;
   }
 }
 .comment-section .comments-history .comment .controlpanel .buttons-reaction {
@@ -1114,7 +1161,7 @@ button {
   font-weight: 400;
   font-size: 20px;
   line-height: 140%;
-  /* identical to box height, or 28px */
+  text-align: center;
   color: #000000;
 }
 .comment-section .comments-history .comment .controlpanel .reply-button:hover {

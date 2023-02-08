@@ -1,11 +1,5 @@
-import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
-
-import guy from '../assets/img/guy.jpg';
-
 import {Icomment, ISingleComment} from './comments'
-
-
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
@@ -15,11 +9,11 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import IconMenu from './MaterialUI/IconMenu';
 import SaveIcon from '@mui/icons-material/Save';
-
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { favoriteFilter } from '../redux/favorite/selectors';
 import CheckApi from './auth/useAuth';
+import axios from 'axios';
 
 
 
@@ -177,7 +171,7 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
           
           if (!IsReplying){
             const greeting =  `@${newComment.author[0].toUpperCase() + newComment.author.slice(1)} ` 
-            {newReply.text != greeting && !newReply.text.includes(greeting) && setnewReply({ ...newReply, text: greeting})} 
+            {newReply.text !== greeting && !newReply.text.includes(greeting) && setnewReply({ ...newReply, text: greeting})} 
             }
             // else{
             //     setnewReply(defaultReply);
@@ -327,7 +321,7 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
                 </div>
                 <div className="eclispe-menu-wrapper">
 
-                    {!editing && !IsReplying && logged && name == comment.author &&
+                    {!editing && !IsReplying && logged && name === comment.author &&
 
                     <div>
                         {/* <div className="ellipse"></div>
@@ -374,7 +368,7 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
             <div className="controlpanel">
 
-                    {editing ?(
+                    {editing ? (
                         <div className="buttons-reaction">
                             {/* <button onClick={handleSaveClick}>Save</button>
                             <button onClick={handleCancelClick}>Cancel</button> */}
@@ -382,17 +376,15 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
                             <Button disabled={newComment.text === ''} variant="outlined" onClick={handleSaveClick} endIcon={<SaveIcon />}>Save</Button>
                             <Button variant="text" onClick={handleCancelClick}>Cancel</Button>
 
-
                         </div>
                     ):
                     (
                         <>
                         <div className="buttons-reaction">
-
                             <Button disabled color="success" variant="outlined" onClick={HandleLike} endIcon={<ThumbUpIcon />}>{newComment.likes}</Button>
                             <Button disabled color="error" variant="outlined" onClick={HandleDisike} endIcon={<ThumbUpIcon />}>{newComment.dislikes}</Button>
                         </div>
-                        <div className="reply-button" onClick={handleStartReply}>Reply</div>
+                        {logged ? <div className="reply-button" onClick={handleStartReply}>    <div>Reply</div>   </div> : <div></div>}
                         <div className="hours-ago">{timeAgo}</div>
                         </>
                     )}
@@ -406,7 +398,7 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
             </div>
 
 
-            {IsReplying && (
+            {IsReplying && logged && (
                 <>
                 <TextField
                     sx={{width : "100%"}}
@@ -419,7 +411,7 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
                     onChange={e => setnewReply({ ...newReply, text: e.target.value, reply_id : newComment.reply_id || Number(comment.id) })}
                 /> 
                 
-                <div className="controlpanel">
+                <div className="controlpanel-post">
     
                         
                             <div className="buttons-reaction">

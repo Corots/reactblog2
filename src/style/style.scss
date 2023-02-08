@@ -4,6 +4,35 @@
     box-sizing: border-box;
 }
 
+#preloader{
+    // background-image: url("#{$public-url}/images/your-image.gif");
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // background-size: 100%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    opacity: 0.7;
+
+    img{
+        // background-color: green;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+}
+
+
+
 a {
     text-decoration: none;
 }
@@ -183,58 +212,64 @@ button {
             right: 38px;
             top: 79px;
             width: 221px;
-            height: 218px;
             border: 1px solid #B0B0B0;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             border-radius: 5px;
             z-index: 2;
 
-            .avatar{
-                position: absolute;
-                left: 17px;
-                top: 10px;
-
-            }
-
-            .name{
-                position: absolute;
-                width: 64px;
+            .user-top-info
+            {
+                height: 60px;
+                .avatar{
+                    position: absolute;
+                    left: 17px;
+                    top: 10px;
+    
+                }
+    
+                .name{
+                    position: absolute;
+                    width: 64px;
+                    height: 15px;
+                    left: 77px;
+                    top: 10px;
+    
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 15px;
+                    /* identical to box height */
+    
+    
+                    color: #000000;
+                }
+    
+                .occup{
+                /* Author, redactor */
+    
+                position: relative;
+                width: 93px;
                 height: 15px;
                 left: 77px;
-                top: 10px;
-
+                top: 34px;
+    
                 font-family: 'Inter';
                 font-style: normal;
                 font-weight: 400;
                 font-size: 12px;
                 line-height: 15px;
                 /* identical to box height */
+    
+    
+                /* My grey */
+    
+                color: #B0B0B0; 
+                }
 
 
-                color: #000000;
             }
-
-            .occup{
-            /* Author, redactor */
-
-            position: relative;
-            width: 93px;
-            height: 15px;
-            left: 77px;
-            top: 34px;
-
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 15px;
-            /* identical to box height */
-
-
-            /* My grey */
-
-            color: #B0B0B0; 
-            }
+            
 
 
             .menu-elems{
@@ -244,18 +279,25 @@ button {
                 align-items: flex-start;
                 padding: 0px;
 
-                position: absolute;
                 width: 100%;
-                left: 0px;
-                top: 58px;
 
-                a{
+                display: flex;
+                flex-direction: column;
+
+                // a{
+                //     width: 100%;
+                //     .elem:hover{
+                //         cursor: pointer;
+                //         background: #ededed;
+                //     }
+                // }
+
+                a {
+                    text-decoration: none;
+                    color: inherit;
                     width: 100%;
-                    .elem:hover{
-                        cursor: pointer;
-                        background: #ededed;
-                    }
-                }
+                    // cursor: default;
+                  }
 
 
                 .elem{
@@ -361,6 +403,7 @@ button {
 
             gap: 20px;
             padding: 30px 20px;
+            min-height: 291px;
             // justify-content: space-between;
 
             // opacity: 0;
@@ -477,6 +520,15 @@ button {
 
 
                 .left-text{
+                    &-clickable{
+
+                        color :rgb(65, 148, 243);
+                        &:hover{
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
+
+                    }
       
 
                     @include text-style($color-left-reg-menu);  
@@ -634,6 +686,17 @@ button {
             }
 
 }
+
+
+
+.restore-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 10px;
+    width: min(400px,90%);
+}
+
 
 
 
@@ -1656,12 +1719,34 @@ button {
                     padding: 0px;
                     gap: 56px;
 
+
+                    &-post{
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        vertical-align: center;
+                        padding: 0px;
+                        gap: 56px;
+
+                        .buttons-reaction{
+
+                            display: flex;
+                            flex-direction: row;
+                            gap: 15px;
+    
+                        }
+                    }
+
+                    
+
                     @media (max-width: 580px) {
                         & {
                             display: grid;
-                            grid-template-columns: 190px 10px;
                             gap : 15px 5px;
+                            grid-template-columns: 160px auto;
                         }
+
+
                     }
 
 
@@ -1675,36 +1760,6 @@ button {
                         flex-direction: row;
                         gap: 15px;
 
-                        // button{
-                        //     background: #FFFFFF;
-                        //     /* My grey */
-
-                        //     border: 1px solid #B0B0B0;
-                        //     border-radius: 10px;
-
-                        //     font-family: 'Inter';
-                        //     font-style: normal;
-                        //     font-weight: 400;
-                        //     font-size: 20px;
-                        //     line-height: 140%;
-                        //     /* or 28px */
-
-                        //     padding: 2px 7px;
-
-                        //     color: #000000;
-
-                        //     &:hover{
-                        //         cursor: pointer;
-
-                        //         border: 1px solid #dedede;
-
-                        //     }
-
-                        // }
-
-                        
-
-
                     }
 
                     .reply-button{
@@ -1715,36 +1770,26 @@ button {
                         font-weight: 400;
                         font-size: 20px;
                         line-height: 140%;
-                        /* identical to box height, or 28px */
-
-
+                        text-align: center;
                         color: #000000;
 
                         &:hover{
                             cursor: pointer;
                             color: #cecece;
-
                         }
-
-                        
                     }
 
 
                     .hours-ago{
                         height: 28px;
-
                         font-family: 'Inter';
                         font-style: normal;
                         font-weight: 400;
                         font-size: 20px;
                         line-height: 140%;
                         /* identical to box height, or 28px */
-
-
                         /* My grey */
-
                         color: #B0B0B0;
-
                     }
 
 

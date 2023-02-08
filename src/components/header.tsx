@@ -15,6 +15,8 @@ import NotLoggedIn from './Login/NotLoggedIn';
 import LoginCheck from './Login/LoginCheck';
 import LoggedIn from './Login/LoggedIn';
 import Register from './Login/Register';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
 
 type Props = {}
 
@@ -129,12 +131,21 @@ const Header  : React.FC = (props: Props) => {
             </Link>
             
 
-            <div className='clickable'>
+            {/* <div className='clickable'> */}
                 {/* ! Check if user logged. Choose the avatar depends on it.  */}    
                 {/* If person click the avatar - change the status of menu showing (True/false) */}
-                <Avatar onClick={handleAvatarClick} alt = {name ? name[0].toUpperCase() + name.slice(1) : name}  src={logged ? "/avatars/${name}" : "" } ref={avatarRef} /> 
-            </div>
-
+                {/* <Avatar onClick={handleAvatarClick} alt = {name ? name[0].toUpperCase() + name.slice(1) : name}  src={logged ? "/avatars/${name}" : "" } ref={avatarRef} /> 
+            </div> */}
+            
+            <Tooltip title={logged ? "Account settings" : "Login/Register"}>
+                    <IconButton
+                        onClick={handleAvatarClick}
+                        size="small"
+                        sx={{ ml: 2 }}
+                    >
+                        <Avatar ref={avatarRef} src={logged ? "/avatars/${name}" : ""} sx={{ width: 32, height: 32 }}>{name ? name[0].toUpperCase() : name}</Avatar>
+                    </IconButton>
+            </Tooltip>
 
             
         </div>
