@@ -63,9 +63,16 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
     
     const [IsReplying, setIsReplying] = useState(false);
     
-    const [newComment, setnewComment] = useState(comment);
-
+    const [newComment, setnewComment] = useState<Icomment>(comment);
     const {logged, name} = useSelector(favoriteFilter);
+
+
+    useEffect(  () => {
+        getCommentFromApi();
+    } , [logged] )
+
+    
+
 
     const defaultReply = {
         id: 1,
@@ -150,11 +157,37 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
 
     const getCommentFromApi = async () => {
-        // Fetch the updated comments from the API
-        const updatedComment = await axios.get(`https://myawesomeapp.me/api/comment/${comment.id}` );
-        comment = updatedComment.data
-        console.log('New comment from api is ', comment);
-        setnewComment(comment);
+
+        if (logged){
+
+            const MyUpdateCommentPromise = (access_token : string) => {
+                const query = {
+                    token : access_token,
+                }
+                return axios.get(`https://myawesomeapp.me/api/comment/${comment.id}`,  {params : query} );
+            }
+
+            const updatedComment = await CheckApi(MyUpdateCommentPromise); 
+            if (updatedComment){
+                comment = updatedComment.data
+                console.log('New comment from api is ', comment);
+                setnewComment(comment);
+            }
+            
+
+        }
+        else{
+            // Fetch the updated comments from the API
+            const updatedComment = await axios.get(`https://myawesomeapp.me/api/comment/${comment.id}` );
+            comment = updatedComment.data
+            console.log('New comment from api is ', comment);
+            setnewComment(comment);
+        }
+
+
+
+
+        
     }
 
 
@@ -221,8 +254,6 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
       const updateComment = async (updatedComment : any) => {
             try {
-
-
                 const MyUpdatePromise = (access_token : string) => {
                     const query = {
                         token : access_token
@@ -248,16 +279,34 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
 
     const handleSaveClick = async () => {
-    await updateComment({text: newComment.text})
+        await updateComment({text: newComment.text})
     };
 
-    const HandleLike = async () => {
-        await updateComment({likes: newComment.likes + 1})
+    enum ReactionEnum{
+        like = 'like',
+        dislike = "dislike",
+    }
+        
+
+
+    const HandleReaction = async (reaction: ReactionEnum) => {
+        try {
+            const MyLikePromise = (access_token : string) => {
+                const query = {
+                    token : access_token
+                }
+                return axios.post(`https://myawesomeapp.me/api/comment/${comment.id}/${reaction.valueOf()}`,{}, {params : query} );
+            }
+            
+            await CheckApi(MyLikePromise);
+
+        } catch (error) {
+            console.error(error);
+        }
+
+        await getCommentFromApi();
     };
 
-    const HandleDisike = async () => {
-        await updateComment({dislikes: newComment.dislikes + 1})
-    };
 
 
 
@@ -303,6 +352,7 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
 
         calculateTimeAgo();
     }, [comment]);
+    
     
 
     return (
@@ -381,8 +431,8 @@ const Singlecomment : React.FC<ISingleComment> = ({ comment, replies, fetchData 
                     (
                         <>
                         <div className="buttons-reaction">
-                            <Button disabled color="success" variant="outlined" onClick={HandleLike} endIcon={<ThumbUpIcon />}>{newComment.likes}</Button>
-                            <Button disabled color="error" variant="outlined" onClick={HandleDisike} endIcon={<ThumbUpIcon />}>{newComment.dislikes}</Button>
+                            <Button disabled = {!logged} color="success" variant={newComment.liked ? "contained" : "outlined"} onClick={() => HandleReaction(ReactionEnum.like)} endIcon={<ThumbUpIcon />}>{newComment.likes}</Button>
+                            <Button disabled = {!logged} color="error" variant={newComment.disliked ? "contained" : "outlined"} onClick={() => HandleReaction(ReactionEnum.dislike)} endIcon={<ThumbUpIcon />}>{newComment.dislikes}</Button>
                         </div>
                         {logged ? <div className="reply-button" onClick={handleStartReply}>    <div>Reply</div>   </div> : <div></div>}
                         <div className="hours-ago">{timeAgo}</div>

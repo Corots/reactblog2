@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ArticleCart  from './ArticleCart'
 
 import Search, { sortList } from './search';
@@ -136,6 +136,7 @@ const RowArticles = (props: Props) => {
   }, [searchParams])
 
 
+  const myRefRow = useRef<HTMLDivElement>(null);
 
 
   const handlePageClick = (selectedItem: {
@@ -144,10 +145,23 @@ const RowArticles = (props: Props) => {
 
   console.log('pase setted', selectedItem.selected + 1)
     dispatch(setPage(selectedItem.selected + 1));
+
+
+    if (myRefRow.current){
+      myRefRow.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+      // window.scrollTo({
+      //   top: myRefRow.current.offsetTop,
+      //   behavior: 'smooth',
+      // });
+    } 
   };
 
 
-  
+
+
 
 
   return (
@@ -159,14 +173,24 @@ const RowArticles = (props: Props) => {
       {
   isLoading 
   ?  
-  <div className="row-articles">
+  <div  className="row-articles">
     {[...new Array(8)].map( (_, index) => <Skeleton key = {index}/>  ) }
   </div>
   :
   articles.length !== 0 ?
   (
     <>
-      <div className="row-articles">
+      <ReactPaginate
+      breakLabel="..."
+      nextLabel="next >"
+      onPageChange={handlePageClick}
+      forcePage = {searchParams.page - 1}
+      pageRangeDisplayed={5}
+      pageCount={pageCount? pageCount : 0}
+      previousLabel="< previous"
+      // renderOnZeroPageCount={null}
+      />
+      <div ref={myRefRow} className="row-articles">
         {articles.map((article) => (<ArticleCart key={article.id} article={article}/>))}
       </div>
       <ReactPaginate
