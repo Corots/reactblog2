@@ -643,6 +643,32 @@ button {
   display: flex;
   padding: 20px 0;
 }
+.context [role=navigation] {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  justify-content: center;
+  padding: 40px 0;
+  color: white;
+}
+.context [role=navigation] li a {
+  border: 1px solid rgb(226, 226, 226);
+  padding: 5px 12px;
+  padding-bottom: 8px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #8c9ae8;
+}
+.context [role=navigation] li a:hover {
+  cursor: pointer;
+  background-color: #a5aee2;
+}
+.context [role=navigation] li.selected a {
+  border: 3px solid rgb(226, 226, 226);
+}
+.context [role=navigation] li.disabled a {
+  background-color: #cbcbcb;
+}
 .context .row-articles {
   /* Component 7 */
   /* Auto layout */

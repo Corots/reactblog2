@@ -14,6 +14,6 @@ export enum SortPropertyEnum {
     SearchText: string;
     SearchAuthor: string;
     SortProperty: SortPropertyEnum,
-
+    page : number,
 
   }

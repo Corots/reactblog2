@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 
 import { useAppDispatch } from '../redux/store';
-import { setSearch } from '../redux/filter/slice';
+import { setPage, setSearch } from '../redux/filter/slice';
 
 import { FilterSliceState, Sort, SortPropertyEnum } from '../redux/filter/types';
 
@@ -76,6 +76,12 @@ const Search  : React.FC = (props: Props) => {
           }
       }
 
+      if (Number(result.page)){
+        dispatch(setPage(Number(result.page)))
+      }
+
+
+
       
 
       };
@@ -99,7 +105,8 @@ const Search  : React.FC = (props: Props) => {
     const searchState : FilterSliceState = {
       SearchText : inputText,
       SearchAuthor : inputAuthor,
-      SortProperty : sortType.sortProperty
+      SortProperty : sortType.sortProperty,
+      page : 1,
     };
     dispatch(setSearch(searchState));
   }
