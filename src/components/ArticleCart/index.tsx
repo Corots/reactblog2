@@ -6,6 +6,7 @@ import guy from '../../assets/img/guy.jpg';
 import { Link } from 'react-router-dom';
 import IconCheckboxes from '../MaterialUI/IconCheckboxes';
 import { Iarticle } from '../rowArticles';
+import Avatar from '@mui/material/Avatar';
 
 
 
@@ -29,6 +30,7 @@ const ArticleCart  : React.FC<{ article: Iarticle }> = ({ article }) => {
                         <IconCheckboxes articleId = {article.id}/>
                     </div>
                 <a href="#" className="img-href">
+                    
                     <img className="image-zone" src={imageann} />
                 </a>
 
@@ -42,7 +44,8 @@ const ArticleCart  : React.FC<{ article: Iarticle }> = ({ article }) => {
 
 
                 <div className="author">
-                    <a href="#"> <img src={article.img} className="author-image"/></a>
+                    <Avatar alt={article.author} src="sdf" />
+                    {/* <a href="#"> <img src={article.img} className="author-image"/></a> */}
 
                     <div className="author-box">
                         <p className="name">Author : <a href="#">{article.author}</a></p>
