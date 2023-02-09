@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { commentFilter } from '../redux/comments/selectors';
 import { SortPropertyEnum } from '../redux/comments/types';
 import CommentSkeleton from './Comment/skeleton';
+import { favoriteFilter } from '../redux/favorite/selectors';
+import CheckApi from './auth/useAuth';
 
 type Props = {
     articleId : number
@@ -23,6 +25,10 @@ export interface Icomment {
     author_id: number;
     article_id : number;
     author : string;
+
+    liked? : boolean;
+    disliked? : boolean;
+
 }
 
 
@@ -69,15 +75,46 @@ const Comments : React.FC<Props> = ({articleId}) => {
     
 
     const {SortProperty} = useSelector(commentFilter);
+    const {logged} = useSelector(favoriteFilter);
 
     
 
     const fetchData = async (SortProperty: SortPropertyEnum) => {
         setisLoading(true);
-        const result = await axios.get<Icomment[]>(`https://myawesomeapp.me/api/article/${articleId}/comments?sortBy=${getFilterTagByReduxData(SortProperty).valueOf()}&order=desc`);
-        console.log('data from comments element', result.data);
-        setLoadedComments(result.data);
-        setisLoading(false);
+
+        console.log('inside comments. Logged?', logged)
+
+        if (logged){
+
+            
+
+            const MyUpdateCommentPromise = (access_token : string) => {
+                const query = {
+                    token : access_token,
+                }
+                return axios.get<Icomment[]>(`https://myawesomeapp.me/api/article/${articleId}/comments?sortBy=${getFilterTagByReduxData(SortProperty).valueOf()}&order=desc` ,  {params : query});
+            }
+
+            const Comments = await CheckApi(MyUpdateCommentPromise); 
+            if (Comments){
+                setLoadedComments([]);
+                console.log('new data - ', Comments.data)
+                setLoadedComments(Comments.data);
+                setisLoading(false);
+            }
+            
+
+        }
+        else{
+            const result = await axios.get<Icomment[]>(`https://myawesomeapp.me/api/article/${articleId}/comments?sortBy=${getFilterTagByReduxData(SortProperty).valueOf()}&order=desc`);
+            console.log('data from comments element', result.data);
+            
+            setLoadedComments(result.data);
+            setisLoading(false);
+        }
+
+
+        
       };
 
     
