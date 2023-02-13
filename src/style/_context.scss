@@ -1,0 +1,217 @@
+@import "variables";
+
+
+.context{
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+
+    .notes-title{
+        @include text-style();
+
+
+        justify-content: center;
+        display: flex;
+        padding: 20px 0;
+    }
+
+    [role="navigation"] {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        justify-content: center;
+        padding: 40px 0;
+        color : white;
+
+        
+
+        li{
+            a{
+                border: 1px solid rgb(226, 226, 226);
+                padding: 5px 12px;
+                padding-bottom: 8px;
+                text-align: center;
+                border-radius: 10px;
+                background-color: #8c9ae8;
+        
+                &:hover{
+                    cursor: pointer;
+                    background-color: #a5aee2;
+                }
+        
+                
+            }
+        
+            &.selected{
+                a{
+                    border: 3px solid rgb(226, 226, 226);
+                }
+            }
+
+            &.disabled{
+                    
+                a{
+                    background-color: #cbcbcb;
+                }
+                
+            }
+        }
+
+      }
+
+
+
+    .row-articles{
+        /* Component 7 */
+
+
+        .no-fav{
+            grid-column: 1 / -1;
+            font-size: 26px;
+            padding: 40px 0;
+            width: 80%;
+            max-width: 331px;
+            text-align: center;
+        }
+        
+    
+        /* Auto layout */
+
+        @media (max-width: nth($breakpoints, 1)) {
+            &{
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
+
+        @media (max-width: nth($breakpoints, 2)) {
+            &{
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: nth($breakpoints, 3)) {
+            &{
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+        }
+
+
+    
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        align-items: start;
+        justify-items: center;
+        row-gap: 10px;
+        padding: 10px 0;
+        width: 100%;
+        
+        .article-cart{
+            width: 283px;
+            border: 1px solid #000000;
+            border-radius: 10px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 15px;
+
+            position: relative;
+
+
+            &-skeleton{
+                padding: 0px;
+            }
+
+            a{
+                color: red;
+                position: relative;
+
+                & .image-zone:hover{
+                    border: 1px solid rgb(224, 224, 224);
+                }
+
+                & .author-image:hover{
+                    border: 1px solid rgb(156, 199, 249);
+                }
+
+            }
+
+            a:hover{
+                text-decoration: underline;
+            }
+
+
+            .addfav{
+                position: absolute;
+                background-color: #e1e1e1;
+                left: 168px;
+                top: 22px;
+                z-index: 2;
+                border-radius: 10px;
+              }
+
+            .image-zone{
+                width: 100%;
+                height: 190px;
+
+                /* My grey */
+
+                border: 2px solid #B0B0B0;
+                border-radius: 10px;
+
+
+
+
+            }
+
+
+            .title{
+                width: 100%;
+                @include text-style($font-size: $font-size-title-cart );
+            }
+
+            .subtitle{
+                width: 100%;
+
+
+                @include text-style($color :$color-cart-text,   $font-size : $font-size-cart-text, $font-weight : $font-weight-cart-text);
+            }
+
+
+        }
+
+    
+    }
+
+    .pagination-block{
+        width: 100%;
+        height: 32px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+
+        padding: 40px;
+
+        .page{
+            @include text-style();
+
+            background: #8447FA;
+
+            padding: 5px 10px;
+            border-radius: 50%;
+
+            &:hover{
+                background: #9b6ff4;
+            }
+
+        }
+
+    }
+
+}

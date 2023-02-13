@@ -1,0 +1,70 @@
+
+$color-left-reg-menu: #000000;
+$color-right-reg-menu: #8447FA;
+$font-common : Inter;
+$text-color : rgb(47, 47, 47);
+$search-width : 220px;
+$header-height : 102px;
+
+$font-weight-default : 400;
+
+// user
+
+$font-size-user: 20px;
+$font-weight-user: 400;
+
+
+// announcment variables
+$font-family-title : Sarabun;
+$font-weight-title : 600;
+$font-size-top : 40px;
+$font-size-bottom : 14px;
+
+
+// carts
+$font-size-title-cart : 24px;
+
+$font-size-cart-text: 14px;
+$color-cart-text : #b0b0b0;
+$font-weight-cart-text: 600;
+
+
+// single article
+$font-size-title-single-article: 40px;
+
+$font-size-subtitle-single-article: 14px;
+$font-weight-subtitle-single-article-cart-text: 600;
+
+
+// Comments
+
+$font-size-comments-title: 40px;
+$font-weight-comments-title: 400;
+
+// single comment
+$font-size-single-comment: 20px;
+$font-weight-single-comment: 400;
+
+$font-size-reply-button : 20px;
+$color-time-ago : #b0b0b0;
+
+
+@mixin absolute-width-height($width, $height){
+    position: absolute;
+    width: $width;
+    height: $height;
+}
+
+@mixin text-style($color : $text-color, $font: $font-common, $font-weight : $font-weight-default,  $font-size : 12px) {
+    font-family: $font;
+    font-style: normal;
+    font-weight: $font-weight;
+    font-size: $font-size;
+    // line-height: 15px;
+    color: $color;
+}
+
+
+
+
+$breakpoints: (1310px, 900px, 600px);

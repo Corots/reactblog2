@@ -1,0 +1,110 @@
+@import "variables";
+
+
+.anouncment{
+    /* Frame 2 */
+
+
+    position: relative;
+    margin-top: 102px;
+
+    width: 100%;
+    height: 399px;
+
+
+    background: linear-gradient(264.87deg, #C1C1C1 24.22%, #EDF1F4 81.04%);
+
+
+    .title{
+        /* Time to get your house clean and in order */
+        position: absolute;
+        width: 414px;
+        height: 104px;
+        left: 48px;
+        top: 95px;
+
+        line-height: 52px;
+        @include text-style($font:  $font-family-title, $font-weight : $font-weight-title, $font-size:  $font-size-top);
+
+        @media (max-width: 462px) {
+            & {
+                width: 304px;
+                top: 34px;
+            }
+        }
+
+
+    }
+
+    .subtitle{
+        /* Practical advices how to make your home a place you want to be */
+
+
+        position: absolute;
+        width: 400px;
+        height: 18px;
+        left: 48px;
+        top: 233px;
+
+        
+        @include text-style( $color : #5b5b5b,$font:  $font-family-title, $font-weight : $font-weight-title, $font-size:  $font-size-bottom);
+
+        @media (max-width: 462px) {
+            & {
+                width: 290px;
+                top: 214px;
+            }
+        }
+
+    }
+
+    .read{
+        /* button */
+
+
+        position: absolute;
+        width: 150px;
+        height: 41px;
+        left: 48px;
+        top: 285px;
+
+        /* My blue */
+
+        // background: #8447FA;
+        // border-radius: 5px;
+        // color: white;
+        // border: none;
+        // cursor: pointer;
+    }
+
+    .image{
+        /* image 1 */
+
+        // 1110 px - disappear
+
+        @media (max-width: 1110px) {
+            & {
+                width: 483px;
+            }
+        }
+
+        @media (max-width: 950px) {
+            & {
+                display: none;
+            }
+        }
+
+        
+
+        position: absolute;
+        width: 647px;
+        height: 398px;
+        right: 0;
+        top: 1px;
+
+        background: url(../assets/img/image-ann.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+            }
+
+}

@@ -1,42 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-#preloader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  opacity: 0.7;
-}
-#preloader img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-a {
-  text-decoration: none;
-}
-
-button {
-  /* or */
-  all: unset;
-  text-align: center;
-}
-
 .header {
-  /* header */
-  /* Auto layout */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -55,17 +17,14 @@ button {
   top: -102px;
 }
 .header .logo {
-  /* logo */
   width: 124px;
   height: 32px;
-  /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
   position: relative;
 }
 .header .logo .text {
-  /* AwesomeBlog */
   position: absolute;
   width: 100%;
   height: 100%;
@@ -73,7 +32,6 @@ button {
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 15px;
   color: #000000;
   letter-spacing: 0.155em;
 }
@@ -88,7 +46,6 @@ button {
   cursor: pointer;
 }
 .header .control .fav {
-  /* fav */
   position: absolute;
   width: 30px;
   height: 35px;
@@ -102,17 +59,14 @@ button {
   filter: none;
 }
 .header .control .fav .icon {
-  /* Vector */
   position: absolute;
   width: 180%;
   height: 144%;
   right: -10px;
   top: -7px;
-  /* My grey */
   filter: hue-rotate(360deg) saturate(100%) brightness(200%);
 }
 .header .control .fav .number {
-  /* Group 1 */
   position: absolute;
   width: 16px;
   height: 16px;
@@ -131,14 +85,12 @@ button {
   position: absolute;
   left: 32%;
   top: 9%;
-  font-family: "Jacques Francois";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 16px;
-  /* identical to box height */
-  letter-spacing: 0.155em;
   color: #FFFFFF;
+  letter-spacing: 0.155em;
 }
 .header .control .account {
   background: #FFFFFF;
@@ -165,13 +117,11 @@ button {
   height: 15px;
   left: 77px;
   top: 10px;
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 15px;
-  /* identical to box height */
-  color: #000000;
+  color: rgb(47, 47, 47);
 }
 .header .control .account .user-top-info .occup {
   /* Author, redactor */
@@ -180,14 +130,11 @@ button {
   height: 15px;
   left: 77px;
   top: 34px;
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 15px;
-  /* identical to box height */
-  /* My grey */
-  color: #B0B0B0;
+  color: rgb(47, 47, 47);
 }
 .header .control .account .menu-elems {
   /* Auto layout */
@@ -229,13 +176,11 @@ button {
   height: 15px;
   left: 53px;
   top: 9px;
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 15px;
-  /* identical to box height */
-  color: #000000;
+  color: rgb(47, 47, 47);
 }
 .header .control .account .menu-elems .elem .number {
   /* Group 5 */
@@ -246,12 +191,11 @@ button {
   padding: 3px 7px;
   background: #8447FA;
   border-radius: 50%;
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
-  font-size: 10px;
-  line-height: 12px;
-  color: #FFFFFF;
+  font-size: 12px;
+  color: rgb(47, 47, 47);
 }
 .header .control .account .menu-elems .elem .number:hover {
   cursor: pointer;
@@ -319,11 +263,10 @@ button {
   justify-content: space-between;
 }
 .header .control .login-frame .DontHaveAccFrame .left-text {
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 15px;
   color: #000000;
 }
 .header .control .login-frame .DontHaveAccFrame .left-text-clickable {
@@ -335,11 +278,10 @@ button {
 }
 .header .control .login-frame .DontHaveAccFrame a.right-text {
   /* Register */
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 15px;
   color: #8447FA;
 }
 .header .control .login-frame .ForgetPassFrame {
@@ -348,11 +290,10 @@ button {
   justify-content: space-between;
 }
 .header .control .login-frame .ForgetPassFrame .left-text {
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 15px;
   color: #000000;
 }
 .header .control .login-frame .ForgetPassFrame .left-text-clickable {
@@ -363,11 +304,10 @@ button {
   text-decoration: underline;
 }
 .header .control .login-frame .ForgetPassFrame a.right-text {
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 15px;
   color: #8447FA;
 }
 .header .control .login-frame .Error {
@@ -390,12 +330,12 @@ button {
   height: 104px;
   left: 48px;
   top: 95px;
-  font-family: "Sarabun";
+  line-height: 52px;
+  font-family: Sarabun;
   font-style: normal;
   font-weight: 600;
   font-size: 40px;
-  line-height: 52px;
-  color: #000000;
+  color: rgb(47, 47, 47);
 }
 @media (max-width: 462px) {
   .anouncment .title {
@@ -410,14 +350,11 @@ button {
   height: 18px;
   left: 48px;
   top: 233px;
-  /* little text */
-  font-family: "Sarabun";
+  font-family: Sarabun;
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
-  line-height: 18px;
-  /* My grey */
-  color: #5B5B5B;
+  color: #5b5b5b;
 }
 @media (max-width: 462px) {
   .anouncment .subtitle {
@@ -454,14 +391,6 @@ button {
   .anouncment .image {
     display: none;
   }
-}
-
-.restore-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px 10px;
-  width: min(400px, 90%);
 }
 
 .search {
@@ -544,12 +473,11 @@ button {
   height: 32px;
   background: #8447FA;
   border-radius: 5px;
-  font-family: "Sarabun";
+  font-family: Inter;
   font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 18px;
-  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgb(47, 47, 47);
 }
 .search .inputs .choose {
   width: 100%;
@@ -633,12 +561,11 @@ button {
   width: 100%;
 }
 .context .notes-title {
-  font-family: "Jacques Francois";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
-  line-height: 32px;
-  color: #000000;
+  font-size: 12px;
+  color: rgb(47, 47, 47);
   justify-content: center;
   display: flex;
   padding: 20px 0;
@@ -747,21 +674,19 @@ button {
 }
 .context .row-articles .article-cart .title {
   width: 100%;
-  font-family: "Inder";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
-  line-height: 30px;
-  color: #000000;
+  color: rgb(47, 47, 47);
 }
 .context .row-articles .article-cart .subtitle {
   width: 100%;
-  font-family: "Sarabun";
+  font-family: Inter;
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
-  line-height: 18px;
-  color: #B0B0B0;
+  color: #b0b0b0;
 }
 .context .pagination-block {
   width: 100%;
@@ -773,13 +698,11 @@ button {
   padding: 40px;
 }
 .context .pagination-block .page {
-  /* little text */
-  font-family: "Sarabun";
+  font-family: Inter;
   font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 18px;
-  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgb(47, 47, 47);
   background: #8447FA;
   padding: 5px 10px;
   border-radius: 50%;
@@ -811,26 +734,22 @@ button {
   width: 100%;
 }
 .single-article-content .single-article-info .title {
-  /* Here is our super awesome title */
-  font-family: "Inder";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 40px;
-  line-height: 50px;
-  text-align: center;
-  color: #000000;
+  color: rgb(47, 47, 47);
 }
 .single-article-content .single-article-info .subtitle {
   max-width: 670px;
   height: 36px;
-  font-family: "Sarabun";
+  text-align: center;
+  width: 90%;
+  font-family: Inter;
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
-  line-height: 18px;
-  text-align: center;
-  color: #B0B0B0;
-  width: 90%;
+  color: #b0b0b0;
 }
 .single-article-content .single-article-info .author {
   width: auto;
@@ -854,68 +773,23 @@ button {
   max-width: 1300px;
 }
 .single-article-content .single-article-text .title {
-  /* Here is our super awesome title */
-  font-family: "Inder";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
-  font-size: 40px;
-  line-height: 75px;
-  /* identical to box height */
-  color: #000000;
+  font-size: 12px;
+  color: rgb(47, 47, 47);
 }
 .single-article-content .single-article-text p {
   margin: 20px 0;
-}
-.single-article-content .single-article-text p.text {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
   line-height: 24px;
   text-indent: 20px;
-  color: #000000;
 }
-
-.font {
-  font-family: "Inter";
+.single-article-content .single-article-text p.text {
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
-  line-height: 24px;
-  color: #000000;
-}
-.font-bold {
-  font-weight: 700;
-}
-.font-italic {
-  font-style: italic;
-}
-.font-underline {
-  text-decoration-line: underline;
-}
-
-.user {
-  height: 51px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 16px;
-}
-.user:hover {
-  cursor: pointer;
-  background: #F9F9F9;
-}
-.user p {
-  height: 24px;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-  color: #000000;
-  text-align: center;
-  padding: 0 20px;
+  color: rgb(47, 47, 47);
 }
 
 .comment-section {
@@ -955,15 +829,12 @@ button {
   }
 }
 .comment-section .comment-block .top-section .comment {
-  /* Comments */
   height: 50px;
-  font-family: "Inder";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 40px;
-  line-height: 50px;
-  /* identical to box height */
-  color: #000000;
+  color: rgb(47, 47, 47);
 }
 .comment-section .comment-block .top-section .buttons {
   /* Group 19 */
@@ -983,13 +854,11 @@ button {
   /* My grey */
   border: 1px solid #B0B0B0;
   border-radius: 10px 0px 0px 10px;
-  font-family: "Inder";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  /* identical to box height */
-  color: #000000;
+  font-size: 12px;
+  color: rgb(47, 47, 47);
 }
 .comment-section .comment-block .top-section .buttons .left:hover {
   cursor: pointer;
@@ -1000,13 +869,11 @@ button {
   /* My grey */
   border: 1px solid #B0B0B0;
   border-radius: 0px 10px 10px 0px;
-  font-family: "Inder";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  /* identical to box height */
-  color: #000000;
+  font-size: 12px;
+  color: rgb(47, 47, 47);
 }
 .comment-section .comment-block .top-section .buttons .right:hover {
   cursor: pointer;
@@ -1059,13 +926,11 @@ button {
   height: 100%;
   display: flex;
   align-items: center;
-  font-family: "Inder";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  /* identical to box height */
-  color: #FFFFFF;
+  font-size: 12px;
+  color: rgb(47, 47, 47);
   background: #8447FA;
   border-radius: 10px;
   padding: 0 30px;
@@ -1139,13 +1004,11 @@ button {
 }
 .comment-section .comments-history .comment .text {
   width: 100%;
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
-  line-height: 140%;
-  /* or 28px */
-  color: #000000;
+  color: rgb(47, 47, 47);
 }
 .comment-section .comments-history .comment .controlpanel {
   display: flex;
@@ -1182,26 +1045,105 @@ button {
 }
 .comment-section .comments-history .comment .controlpanel .reply-button {
   width: 53px;
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
-  line-height: 140%;
-  text-align: center;
-  color: #000000;
+  color: rgb(47, 47, 47);
 }
 .comment-section .comments-history .comment .controlpanel .reply-button:hover {
   cursor: pointer;
   color: #cecece;
 }
 .comment-section .comments-history .comment .controlpanel .hours-ago {
-  height: 28px;
-  font-family: "Inter";
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
-  line-height: 140%;
-  /* identical to box height, or 28px */
-  /* My grey */
-  color: #B0B0B0;
+  color: #b0b0b0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#preloader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  opacity: 0.7;
+}
+#preloader img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  /* or */
+  all: unset;
+  text-align: center;
+}
+
+.restore-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 10px;
+  width: min(400px, 90%);
+}
+
+.font {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgb(47, 47, 47);
+}
+.font-bold {
+  font-weight: 700;
+}
+.font-italic {
+  font-style: italic;
+}
+.font-underline {
+  text-decoration-line: underline;
+}
+
+.user {
+  height: 51px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 16px;
+}
+.user:hover {
+  cursor: pointer;
+  background: #F9F9F9;
+}
+.user p {
+  height: 24px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgb(47, 47, 47);
+  text-align: center;
+  padding: 0 20px;
+  line-height: 24px;
 }/*# sourceMappingURL=style.css.map */

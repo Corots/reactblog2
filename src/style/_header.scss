@@ -1,0 +1,411 @@
+@import "variables";
+
+.header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    width: 100%;
+    height: $header-height;
+    background: #FFFFFF;
+    position: fixed;
+    top: 0;
+    z-index: 4;
+    border-bottom: 1px solid #cac8c8;
+    transition: top 0.5s;
+    
+    &-hidden{
+        top : -$header-height;
+    }
+    
+    .logo{
+        width: 124px;
+        height: 32px;
+    
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        position: relative;
+    
+        .text{
+            @include absolute-width-height(100%, 100%);
+            
+
+            
+
+            
+            @include text-style(#000000, 'Jacques Francois');
+            letter-spacing: 0.155em;
+        }
+    }
+    
+    .control{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 25px;
+    
+        .clickable{
+            &:hover{
+                cursor: pointer;
+            }
+    
+        }
+        
+    
+        .fav{
+            @include absolute-width-height(30px, 35px);
+            left: 0px;
+            top: 3.5px;
+    
+            &:hover{
+                cursor: pointer;
+                .icon{
+                filter: none;
+                }
+            }
+            
+    
+            .icon{
+                @include absolute-width-height(180%, 144%);
+                right: -10px;
+                top: -7px;
+                filter: hue-rotate(360deg) saturate(100%) brightness(200%);
+            }
+    
+            .number{
+                @include absolute-width-height(16px, 16px);
+                left: 15px;
+                top: 25px;
+    
+                .eclispe{
+                    @include absolute-width-height(100%, 100%);
+                    border-radius: 50%;
+                    background: #8447FA;
+                }
+                
+                .digit{
+                    /* 2 */
+                    position:absolute;
+                    left: 32%;
+                    top: 9%;
+                    @include text-style($color : #FFFFFF);
+                    letter-spacing: 0.155em;
+                }
+    
+    
+    
+            }
+    
+    
+        }
+    
+    
+        .account{
+            background: #FFFFFF;
+            position: absolute;
+            right: 38px;
+            top: 79px;
+            width: 221px;
+            border: 1px solid #B0B0B0;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            z-index: 2;
+    
+            .user-top-info
+            {
+                height: 60px;
+                .avatar{
+                    position: absolute;
+                    left: 17px;
+                    top: 10px;
+    
+                }
+    
+                .name{
+                    position: absolute;
+                    width: 64px;
+                    height: 15px;
+                    left: 77px;
+                    top: 10px;
+    
+                    @include text-style();
+                }
+    
+                .occup{
+                /* Author, redactor */
+    
+                position: relative;
+                width: 93px;
+                height: 15px;
+                left: 77px;
+                top: 34px;
+    
+                @include text-style();
+                }
+    
+    
+            }
+            
+    
+    
+            .menu-elems{
+                /* Auto layout */
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0px;
+    
+                width: 100%;
+    
+                display: flex;
+                flex-direction: column;
+    
+    
+                a {
+                    text-decoration: none;
+                    color: inherit;
+                    width: 100%;
+                    // cursor: default;
+                    }
+    
+    
+                .elem{
+                    width: 100%;
+                    height: 32px;
+    
+                    background: #FFFFFF;
+                    border-top: 1px solid #D9D9D9;
+                    // border-bottom: 1px solid #D9D9D9;
+                    position: relative;
+    
+                    &-logout:hover{
+                        cursor: pointer;
+                        background: #ededed;
+                    }
+    
+                    .logo{
+                        /* Vector */
+                        position: absolute;
+                        left: 12px;
+                        top: 4px;
+                        // border: 2px solid #B0B0B0;
+                        width: 28px;
+                        height: 25px;
+                    }
+    
+    
+                    .text{
+                        /* Show metions */
+    
+    
+                        position: absolute;
+                        // width: 63px;
+                        height: 15px;
+                        left: 53px;
+                        top: 9px;
+    
+                        @include text-style();
+                    }
+    
+                    .number{
+                        /* Group 5 */
+    
+                        position: absolute;
+                        height: 18px;
+                        left: 188px;
+                        top: 7px;
+                        padding: 3px 7px;
+    
+                        background: #8447FA;
+                        border-radius: 50%;
+    
+                        @include text-style();
+    
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    
+    
+    
+                    }
+    
+    
+    
+                }
+    
+            }
+    
+    
+    
+        }
+    
+    
+    
+        .login-frame{
+            box-sizing: border-box;
+            position: absolute;
+            width: 314px;
+            right: 44px;
+            top: 85px;
+            background: #FFFFFF;
+            border: 1px solid #B0B0B0;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            z-index: 2;
+    
+            display: flex;
+            flex-direction: column;
+    
+            gap: 20px;
+            padding: 30px 20px;
+            min-height: 291px;
+    
+            form{
+                display: flex;
+                flex-direction: column;
+                gap: 22px;
+            }
+    
+            input:focus {
+                outline: 1px solid rgb(221, 221, 221); /* adjust the value to change the width and color of the outline */
+                }
+    
+            input{
+                padding-left: 10px;
+            }
+                
+    
+            .login{
+                height: 32px;
+                background: #F9F9F9;
+                border: 1px solid rgba(0, 0, 0, 0.3);
+                border-radius: 5px;
+    
+            }
+    
+    
+            .password{
+            height: 32px;
+            background: #F9F9F9;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            }
+    
+            button.button-login{
+            
+                height: 32px;
+        
+                border-radius: 5px;
+                color: white;
+                
+    
+                /* My blue */
+    
+                background: #8447FA;
+    
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+    
+    
+            
+    
+            a{
+                text-decoration: none;
+                &:hover{
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+            }
+    
+        
+    
+            // * Dont have account sector
+            .DontHaveAccFrame{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+    
+                .left-text{
+    
+    
+                    @include text-style($color-left-reg-menu);
+    
+                    &-clickable{
+    
+                        color :rgb(65, 148, 243);
+                        &:hover{
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
+    
+                    }
+                    
+                    
+                }
+    
+                a.right-text{
+                    /* Register */
+    
+    
+                    @include text-style($color-right-reg-menu);                        
+                }
+    
+            }
+    
+            // * Forget password sector
+            .ForgetPassFrame{
+    
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+    
+    
+    
+                .left-text{
+                    &-clickable{
+    
+                        color :rgb(65, 148, 243);
+                        &:hover{
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
+    
+                    }
+        
+    
+                    @include text-style($color-left-reg-menu);  
+    
+                }
+    
+    
+                a.right-text{
+        
+    
+                    @include text-style($color-right-reg-menu);  
+                }
+            }
+    
+            .Error{
+                color: red;
+                text-align: center;
+            }
+    
+    
+    
+        }
+    
+    
+    
+    
+    
+    
+    }
+    
+    }
+    
+    

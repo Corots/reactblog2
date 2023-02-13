@@ -1,0 +1,59 @@
+@import "variables";
+
+
+// code for author block (pic, name, occupation)
+.author{
+    width: 100%;
+    height: 62px;
+
+    /* My grey */
+    border: 1px solid #B0B0B0;
+    border-radius: 5px;
+
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 11px;
+    gap: 16px;
+
+    &-image{
+        width: 40px;
+        height: 39px;
+        border-radius: 50%;
+        border: 1px solid rgb(233, 233, 233);
+    }
+
+    &-box{
+        flex-grow: 1;
+        height: 39.23px;
+
+        .name{
+            font-family: 'Inter';
+            font-style: italic;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            /* identical to box height */
+            color: #000000;
+        }
+
+        .date{
+            position: relative;
+            top: 9px;
+
+            font-family: 'Inter';
+            font-style: italic;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            /* identical to box height */
+
+
+            color: #000000;
+        }
+
+    }
+
+}
